@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ParseZakupki.Parser
+namespace ParseZakupki
 {
     public interface IParser
     {

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Sprache;
 
-namespace ParseZakupki.Parser
+namespace ParseZakupki
 {
     public class ZakupkiParser
     {
-        public IReadOnlyCollection<PurchaseInformation> Parse(string text)
-        {
-            var costParser =
+        private static Parser<double> costParser =
                 from openDataDesc in Sprache.Parse.String("<dd>").Token()
                 from openStrong in Sprache.Parse.String("<strong>").Token()
                 from cost in Sprache.Parse.AnyChar.Except(Sprache.Parse.String("<span>")).Many().Token().Text()
@@ -23,6 +21,9 @@ namespace ParseZakupki.Parser
                 from closeCurrence in Sprache.Parse.String("</span>").Token()
                 from closeDataDesc in Sprache.Parse.String("</dd>")
                 select double.Parse(string.Join("", cost.Split(new string[] { "&nbsp;" }, StringSplitOptions.RemoveEmptyEntries)) + dec);
+
+        public IReadOnlyCollection<PurchaseInformation> Parse(string text)
+        {
             var createdParser =
                 from openLi in Sprache.Parse.String("<li>").Token()
                 from label in Sprache.Parse.String("<label>Размещено:</label>").Token()
