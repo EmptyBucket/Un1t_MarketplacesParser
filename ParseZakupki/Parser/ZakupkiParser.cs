@@ -9,13 +9,6 @@ namespace ParseZakupki.Parser
     {
         public IReadOnlyCollection<PurchaseInformation> Parse(string text)
         {
-            //var linkParser =
-            //    from openBlock in Sprache.Parse.String("<div class=\"registerBox registerBoxBank margBtm20\">").Token()
-            //    from beginTag in Sprache.Parse.String("<a").Token()
-            //    from beginLink in Sprache.Parse.String("href=\"")
-            //    from link in Sprache.Parse.CharExcept('"').Many().Text()
-            //    from endLink in Sprache.Parse.Char('"')
-            //    select link;
             var costParser =
                 from openDataDesc in Sprache.Parse.String("<dd>").Token()
                 from openStrong in Sprache.Parse.String("<strong>").Token()
@@ -60,12 +53,10 @@ namespace ParseZakupki.Parser
                 from openDDDesc in Sprache.Parse.String("<dd>").Token()
                 from desc in Sprache.Parse.AnyChar.Except(Sprache.Parse.String("</dd>")).Many().Text()
                 from closeDDDesc in Sprache.Parse.String("</dd>").Token()
-                select new { Link = link.Link, Name = link.Name, Desc = desc };
-
+                select new { Link = link.Link, Name = link.Name, Desc = System.Web.HttpUtility.HtmlDecode(desc) };
             var openBlockParser =
                 from openBlock in Sprache.Parse.String("<div class=\"registerBox registerBoxBank margBtm20\">").Token().Text()
                 select openBlock;
-
             var dirtyParser =
                 from trash1 in Sprache.Parse.AnyChar.Except(costParser).Many()
                 from cost in costParser

@@ -37,29 +37,29 @@ namespace ParseZakupki.Parameter
                 mParameters[ZakupkiParameterType.RecordsPerPage] = new ZakupkiParameter(ZakupkiParameterType.RecordsPerPage, '_' + value.ToString());
             }
         }
-        private long mPriceFrom;
-        public long PriceFrom
+        private long mCostFrom;
+        public long CostFrom
         {
             get
             {
-                return mPriceFrom;
+                return mCostFrom;
             }
             set
             {
-                mPriceFrom = value;
+                mCostFrom = value;
                 mParameters[ZakupkiParameterType.PriceFrom] = new ZakupkiParameter(ZakupkiParameterType.PriceFrom, value.ToString());
             }
         }
-        private long mPriceTo;
-        public long PriceTo
+        private long mCostTo;
+        public long CostTo
         {
             get
             {
-                return mPriceTo;
+                return mCostTo;
             }
             set
             {
-                mPriceTo = value;
+                mCostTo = value;
                 mParameters[ZakupkiParameterType.PriceTo] = new ZakupkiParameter(ZakupkiParameterType.PriceTo, value.ToString());
             }
         }
@@ -172,8 +172,8 @@ namespace ParseZakupki.Parameter
         {
             PageNumber = 1;
             RecordsPerPage = MaxRecordsPerPage;
-            PriceFrom = 0;
-            PriceTo = 200000000000;
+            CostFrom = 0;
+            CostTo = 200000000000;
             PublishDateFrom = DateTime.Now;
             PublishDateTo = DateTime.Now;
             Fz44 = true;

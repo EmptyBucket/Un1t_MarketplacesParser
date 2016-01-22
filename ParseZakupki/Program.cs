@@ -12,6 +12,7 @@ namespace ParseZakupki
             //var result = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "TextFile1.txt"));
 
             var parameters = new ZakupkiParameters();
+            parameters.RecordsPerPage = 10;
             var urlBuilder = new ZakupkiUrlBuilder();
             string url = urlBuilder.Build(parameters);
             var client = new ZakupkiClient();
