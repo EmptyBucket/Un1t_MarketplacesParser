@@ -2,7 +2,7 @@
 
 namespace ParseZakupki.Entity
 {
-    public class PurchaseContext : DbContext
+    public class PurchaseInformationContext : DbContext
     {
         public DbSet<PurchaseInformation> Purchase { get; set; }
     }

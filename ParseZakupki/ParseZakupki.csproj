@@ -41,6 +41,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sprache, Version=2.0.0.50, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sprache.2.0.0.50\lib\portable-net4+netcore45+win8+wp8+sl5+MonoAndroid+Xamarin.iOS10+MonoTouch\Sprache.dll</HintPath>
       <Private>True</Private>
@@ -57,21 +65,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\Client.cs" />
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Entity\PurchaseContext.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Parameter\IParameter.cs" />
     <Compile Include="Parameter\ZakupkiParameter.cs" />
     <Compile Include="Parameter\Type\IParameterType.cs" />
     <Compile Include="Parameter\ZakupkiParameters.cs" />
-    <Compile Include="Parser\IParser.cs" />
-    <Compile Include="Parser\ZakupkiParser.cs" />
+    <Compile Include="Parser\IMarketplaceParser.cs" />
+    <Compile Include="Parser\IMaxNumberPageParser.cs" />
+    <Compile Include="Parser\INodeContestParser.cs" />
+    <Compile Include="Parser\NodeParser\ZakupkiCostParser.cs" />
+    <Compile Include="Parser\NodeParser\ZakupkiCreatedParser.cs" />
+    <Compile Include="Parser\NodeParser\ZakupkiCustomerParser.cs" />
+    <Compile Include="Parser\NodeParser\ZakupkiDescriptionParser.cs" />
+    <Compile Include="Parser\ZakupkiMarketplaceParser.cs" />
+    <Compile Include="Parser\NodeParser\ZakupkiIdParser.cs" />
+    <Compile Include="Parser\NodeParser\INodeParser.cs" />
+    <Compile Include="Parser\ZakupkiMaxNumberPageParser.cs" />
+    <Compile Include="Parser\NodeContestParser.cs" />
+    <Compile Include="Parser\NodeParser\ZakupkiUpdatedParser.cs" />
     <Compile Include="Entity\PurchaseInformation.cs" />
     <Compile Include="UrlBuilder\IUrlBuilder.cs" />
     <Compile Include="Parameter\Type\ZakupkiParameterType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlBuilder\ZakupkiUrlBuilder.cs" />
-    <Compile Include="Client\ZakupkiClient.cs" />
+    <Compile Include="ZakupkiUploader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -82,6 +103,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace ParseZakupki.Parameter
 {
-    public class ZakupkiParameters : IReadOnlyDictionary<ZakupkiParameterType, ZakupkiParameter>
+    public class ZakupkiParameters : IReadOnlyDictionary<IParameterType, IParameter>, ICloneable
     {
         public const int MaxRecordsPerPage = 500;
 
-        private Dictionary<ZakupkiParameterType, ZakupkiParameter> mParameters = new Dictionary<ZakupkiParameterType, ZakupkiParameter>();
+        private Dictionary<IParameterType, IParameter> mParameters = new Dictionary<IParameterType, IParameter>();
 
         private int mPageNumber;
         public int PageNumber
@@ -129,19 +129,19 @@ namespace ParseZakupki.Parameter
             }
         }
 
-        public IEnumerable<ZakupkiParameterType> Keys
+        public IEnumerable<IParameterType> Keys
         {
             get
             {
-                return ((IReadOnlyDictionary<ZakupkiParameterType, ZakupkiParameter>)mParameters).Keys;
+                return mParameters.Keys;
             }
         }
 
-        public IEnumerable<ZakupkiParameter> Values
+        public IEnumerable<IParameter> Values
         {
             get
             {
-                return ((IReadOnlyDictionary<ZakupkiParameterType, ZakupkiParameter>)mParameters).Values;
+                return mParameters.Values;
             }
         }
 
@@ -149,11 +149,11 @@ namespace ParseZakupki.Parameter
         {
             get
             {
-                return ((IReadOnlyDictionary<ZakupkiParameterType, ZakupkiParameter>)mParameters).Count;
+                return mParameters.Count;
             }
         }
 
-        public ZakupkiParameter this[ZakupkiParameterType key]
+        public IParameter this[IParameterType key]
         {
             get
             {
@@ -181,29 +181,31 @@ namespace ParseZakupki.Parameter
             Fz223 = false;
         }
 
-        public bool ContainsKey(ZakupkiParameterType key)
-        {
-            return ((IReadOnlyDictionary<ZakupkiParameterType, ZakupkiParameter>)mParameters).ContainsKey(key);
-        }
-
-        public bool TryGetValue(ZakupkiParameterType key, out ZakupkiParameter value)
-        {
-            return ((IReadOnlyDictionary<ZakupkiParameterType, ZakupkiParameter>)mParameters).TryGetValue(key, out value);
-        }
-
-        public IEnumerator<KeyValuePair<ZakupkiParameterType, ZakupkiParameter>> GetEnumerator()
-        {
-            return ((IReadOnlyDictionary<ZakupkiParameterType, ZakupkiParameter>)mParameters).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((IReadOnlyDictionary<ZakupkiParameterType, ZakupkiParameter>)mParameters).GetEnumerator();
-        }
-
         public override string ToString()
         {
             return string.Join(string.Empty, mParameters.Select(parameter => parameter.Value.ToString()));
         }
+
+        public bool ContainsKey(IParameterType key)
+        {
+            return mParameters.ContainsKey(key);
+        }
+
+        public bool TryGetValue(IParameterType key, out IParameter value)
+        {
+            return mParameters.TryGetValue(key, out value);
+        }
+
+        public IEnumerator<KeyValuePair<IParameterType, IParameter>> GetEnumerator()
+        {
+            return mParameters.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return mParameters.GetEnumerator();
+        }
+
+        public object Clone() => MemberwiseClone();
     }
 }
