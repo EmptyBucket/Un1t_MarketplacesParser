@@ -22,8 +22,8 @@ namespace ParseZakupki
                 .WithConstructorArgument("idParser", new ZakupkiIdParser());
             Bind<IMaxNumberPageParser>().To<ZakupkiMaxNumberPageParser>();
             Bind<ZakupkiParameters>().ToSelf()
-                .WithPropertyValue("PublishDateFrom", DateTime.Now.AddDays(-2))
-                .WithPropertyValue("PublishDateTo", DateTime.Now);
+                .WithPropertyValue("PublishDateFrom", new DateTime(2015, 11, 1))
+                .WithPropertyValue("CostFrom", 100000000L);
         }
     }
 }
