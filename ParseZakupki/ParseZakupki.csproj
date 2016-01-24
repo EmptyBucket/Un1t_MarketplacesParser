@@ -68,6 +68,20 @@
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Entity\PurchaseContext.cs" />
+    <Compile Include="Entity\ZakupkiParametersDb.cs" />
+    <Compile Include="Migrations\201601241008233_InitialCreate.cs" />
+    <Compile Include="Migrations\201601241008233_InitialCreate.Designer.cs">
+      <DependentUpon>201601241008233_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601241548416_AddClassParameters.cs" />
+    <Compile Include="Migrations\201601241548416_AddClassParameters.Designer.cs">
+      <DependentUpon>201601241548416_AddClassParameters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601241555179_RemovePageNumberFromParameters.cs" />
+    <Compile Include="Migrations\201601241555179_RemovePageNumberFromParameters.Designer.cs">
+      <DependentUpon>201601241555179_RemovePageNumberFromParameters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Parameter\IParameter.cs" />
     <Compile Include="Parameter\ZakupkiParameter.cs" />
@@ -103,7 +117,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601241008233_InitialCreate.resx">
+      <DependentUpon>201601241008233_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601241548416_AddClassParameters.resx">
+      <DependentUpon>201601241548416_AddClassParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601241555179_RemovePageNumberFromParameters.resx">
+      <DependentUpon>201601241555179_RemovePageNumberFromParameters.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

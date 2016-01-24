@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using System.Linq;
+using Ninject;
 using ParseZakupki.Entity;
 
 namespace ParseZakupki
@@ -9,7 +10,10 @@ namespace ParseZakupki
         {
             //var result = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "TextFile1.txt"));
 
-            var kernel = new StandardKernel(new Module());
+            ZakupkiParametersDb parameters;
+            using (var dbContext = new PurchaseInformationContext())
+                parameters = dbContext.Parameters.ToArray().Last();
+            var kernel = new StandardKernel(new Module(parameters));
             var zakupkiParser = kernel.Get<ZakupkiUploader>();
             var result = zakupkiParser.Upload();
             using (var dbContext = new PurchaseInformationContext())

@@ -1,4 +1,5 @@
 ﻿using System;
+using ParseZakupki.Entity;
 using ParseZakupki.Parameter;
 using ParseZakupki.Parser;
 
@@ -6,6 +7,13 @@ namespace ParseZakupki
 {
     public class Module : Ninject.Modules.NinjectModule
     {
+        private ZakupkiParametersDb mParameters;
+
+        public Module(ZakupkiParametersDb parameters)
+        {
+            this.mParameters = parameters;
+        }
+
         public override void Load()
         {
             Bind<IClient>().To<Client>();
@@ -22,8 +30,14 @@ namespace ParseZakupki
                 .WithConstructorArgument("idParser", new ZakupkiIdParser());
             Bind<IMaxNumberPageParser>().To<ZakupkiMaxNumberPageParser>();
             Bind<ZakupkiParameters>().ToSelf()
-                .WithPropertyValue("PublishDateFrom", new DateTime(2015, 11, 1))
-                .WithPropertyValue("CostFrom", 100000000L);
+                .WithPropertyValue("RecordsPerPage", mParameters.RecordsPerPage)
+                .WithPropertyValue("CostFrom", mParameters.CostFrom)
+                .WithPropertyValue("CostTo", mParameters.CostTo)
+                .WithPropertyValue("PublishDateFrom", DateTime.Parse(mParameters.PublishDateFrom))
+                .WithPropertyValue("PublishDateTo", DateTime.Parse(mParameters.PublishDateTo))
+                .WithPropertyValue("Fz44", mParameters.Fz44)
+                .WithPropertyValue("Fz94", mParameters.Fz94)
+                .WithPropertyValue("Fz223", mParameters.Fz223);
         }
     }
 }

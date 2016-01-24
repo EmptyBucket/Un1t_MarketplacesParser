@@ -25,7 +25,7 @@ namespace ParseZakupki
             {
                 maxNumberPage = mMaxNumberPageParser.Parse(result);
             }
-            catch (System.NullReferenceException)
+            catch (NullReferenceException)
             {
                 maxNumberPage = 1;
             }
