@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System;
+using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser.OTCParser.NodeParser
 {
@@ -6,11 +7,18 @@ namespace ParseZakupki.Parser.OTCParser.NodeParser
     {
         public string Parse(HtmlNode node)
         {
-            var cost = node
-                .SelectSingleNode(".//div[@class='result_item__price']/text()")
-                .InnerText
-                .Trim();
-            return cost;
+            try
+            {
+                var cost = node
+                    .SelectSingleNode(".//div[@class='result_item__price']/text()")
+                    .InnerText
+                    .Trim();
+                return cost;
+            }
+            catch (Exception)
+            {
+                return "None";
+            }
         }
     }
 }

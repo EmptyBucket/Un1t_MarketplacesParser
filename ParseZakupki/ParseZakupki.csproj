@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201601252008277_RemColumsParameters.Designer.cs">
       <DependentUpon>201601252008277_RemColumsParameters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601252032291_RemPropertyPurchaseInformation.cs" />
+    <Compile Include="Migrations\201601252032291_RemPropertyPurchaseInformation.Designer.cs">
+      <DependentUpon>201601252032291_RemPropertyPurchaseInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Module\CommonModule.cs" />
     <Compile Include="Module\OTCModule.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601252008277_RemColumsParameters.resx">
       <DependentUpon>201601252008277_RemColumsParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601252032291_RemPropertyPurchaseInformation.resx">
+      <DependentUpon>201601252032291_RemPropertyPurchaseInformation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

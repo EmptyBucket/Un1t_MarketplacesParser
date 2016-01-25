@@ -19,8 +19,8 @@ namespace ParseZakupki
         private static IReadOnlyCollection<PurchaseInformation> Upload(CommonModule module)
         {
             var kernel = new StandardKernel(module);
-            var zakupkiParser = kernel.Get<LotUploader>();
-            var result = zakupkiParser.Upload();
+            var uploader = kernel.Get<LotUploader>();
+            var result = uploader.Upload();
             return result;
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
@@ -8,18 +7,25 @@ namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
     {
         public string Parse(HtmlNode node)
         {
-            string dateFilling;
+            string startDateFilling = null;
+            string endDateFilling = null;
             try
             {
-                dateFilling = string.Join(" ", node
-                    .SelectNodes(".//td[contains(text(), 'подачи заявок')]/following-sibling::td/text()")
-                    .Select(nodeFilling => nodeFilling.InnerText.Trim()));
+                startDateFilling = node
+                    .SelectSingleNode(".//td[contains(text(), 'Дата и время начала') and contains(text(), 'подачи') and contains(text(), 'заявок')]/following-sibling::td/text()")
+                    .InnerText
+                    .Trim();
             }
-            catch (Exception)
+            catch (Exception) { }
+            try
             {
-                dateFilling = "None";
+                endDateFilling = node
+                    .SelectSingleNode(".//td[contains(text(), 'Дата и время начала') and contains(text(), 'подачи') and contains(text(), 'заявок')]/following-sibling::td/text()")
+                    .InnerText
+                    .Trim();
             }
-            return dateFilling;
+            catch (Exception) { }
+            return startDateFilling == null && endDateFilling == null ? "None" : startDateFilling ?? string.Empty + " - " + endDateFilling ?? string.Empty;
         }
     }
 }

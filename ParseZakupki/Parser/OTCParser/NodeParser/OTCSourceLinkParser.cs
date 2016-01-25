@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System;
+using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser.OTCParser.NodeParser
 {
@@ -6,11 +7,18 @@ namespace ParseZakupki.Parser.OTCParser.NodeParser
     {
         public string Parse(HtmlNode node)
         {
-            var sourceLink = node
-                .SelectSingleNode(".//h3[@class='result_item__title']/a/@href")
-                .InnerText
-                .Trim();
-            return sourceLink;
+            try
+            {
+                var sourceLink = node
+                    .SelectSingleNode(".//h3[@class='result_item__title']/a/@href")
+                    .InnerText
+                    .Trim();
+                return sourceLink;
+            }
+            catch(Exception)
+            {
+                return "None";
+            }
         }
     }
 }

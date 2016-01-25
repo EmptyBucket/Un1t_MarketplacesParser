@@ -5,7 +5,7 @@ namespace ParseZakupki.Parser.ZakupkiParser
 {
     public class ZakupkiNodeLotParser : NodeLotParser
     {
-        public ZakupkiNodeLotParser(Uri domain, IClient client, INodeParser dateCreatedParser, INodeParser costParser, INodeParser customerParser, INodeParser descParser, INodeParser idParser, INodeParser dateFiilingParser, INodeParser codeParser, INodeParser sourceLinkParser) : base(domain, client, dateCreatedParser, costParser, customerParser, descParser, idParser, dateFiilingParser, codeParser, sourceLinkParser)
+        public ZakupkiNodeLotParser(Uri domain, IClient client, INodeParser dateCreatedParser, INodeParser costParser, INodeParser customerParser, INodeParser descParser, INodeParser idParser, INodeParser dateFillingParser, INodeParser codeParser, INodeParser sourceLinkParser) : base(domain, client, dateCreatedParser, costParser, customerParser, descParser, idParser, dateFillingParser, codeParser, sourceLinkParser)
         {
         }
 

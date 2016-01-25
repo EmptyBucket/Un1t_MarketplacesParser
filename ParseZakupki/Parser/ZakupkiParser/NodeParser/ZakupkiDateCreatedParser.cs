@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System;
+using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser
 {
@@ -6,12 +7,19 @@ namespace ParseZakupki.Parser
     {
         public string Parse(HtmlNode node)
         {
-            var createdNode = node
-                .SelectSingleNode(".//td[@class='amountTenderTd']/ul/li[1]/text()");
-            var created = createdNode
-                .InnerHtml
-                .Trim();
-            return created;
+            try
+            {
+                var createdNode = node
+                    .SelectSingleNode(".//td[@class='amountTenderTd']/ul/li[1]/text()");
+                var created = createdNode
+                    .InnerHtml
+                    .Trim();
+                return created;
+            }
+            catch(Exception)
+            {
+                return "None";
+            }
         }
     }
 }

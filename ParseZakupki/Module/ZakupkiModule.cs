@@ -22,8 +22,9 @@ namespace ParseZakupki
             base.Load();
 
             Bind<IParameters>().To<ZakupkiParameters>();
-            Bind<IParameterType>().To<ZakupkiParameterType>();
             Bind<IUrlBuilder>().To<ZakupkiUrlBuilder>();
+            Bind<IMaxNumberPageParser>().To<ZakupkiMaxNumberPageParser>();
+            Bind<IParameterType>().To<ZakupkiParameterType>();
             Bind<ILotsSpliter>().To<ZakupkiLotsSpliter>();
             Bind<INodeLotParser>().To<ZakupkiNodeLotParser>()
                 .WithConstructorArgument("domain", new Uri("http://new.zakupki.gov.ru/"))
@@ -32,10 +33,9 @@ namespace ParseZakupki
                 .WithConstructorArgument("customerParser", new ZakupkiCustomerParser())
                 .WithConstructorArgument("descParser", new ZakupkiDescriptionParser())
                 .WithConstructorArgument("idParser", new ZakupkiIdParser())
-                .WithConstructorArgument("dateFiilingParser", new ZakupkiDateFillingParser())
+                .WithConstructorArgument("dateFillingParser", new ZakupkiDateFillingParser())
                 .WithConstructorArgument("codeParser", new ZakupkiCodeParser())
                 .WithConstructorArgument("sourceLinkParser", new ZakupkiSourceLinkParser());
-            Bind<IMaxNumberPageParser>().To<ZakupkiMaxNumberPageParser>();
             Bind<ZakupkiParameters>().ToSelf()
                 .WithPropertyValue("CostFrom", mParameters.CostFrom)
                 .WithPropertyValue("CostTo", mParameters.CostTo)

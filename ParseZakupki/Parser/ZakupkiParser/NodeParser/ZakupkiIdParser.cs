@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System;
+using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser
 {
@@ -6,11 +7,18 @@ namespace ParseZakupki.Parser
     {
         public string Parse(HtmlNode node)
         {
-            var id = node
-                .SelectSingleNode(".//td[@class='descriptTenderTd']/dl/dt/a/text()")
-                .InnerText
-                .Trim();
-            return id;
+            try
+            {
+                var id = node
+                    .SelectSingleNode(".//td[@class='descriptTenderTd']/dl/dt/a/text()")
+                    .InnerText
+                    .Trim();
+                return id;
+            }
+            catch (Exception)
+            {
+                return "None";
+            }
         }
     }
 }

@@ -18,11 +18,11 @@ namespace ParseZakupki.Parser
 
         public abstract PurchaseInformation Parse(HtmlNode node);
 
-        public NodeLotParser(Uri domain, IClient client, INodeParser dateCreatedParser, INodeParser costParser, INodeParser customerParser, INodeParser descParser, INodeParser idParser, INodeParser dateFiilingParser, INodeParser codeParser, INodeParser sourceLinkParser)
+        public NodeLotParser(Uri domain, IClient client, INodeParser dateCreatedParser, INodeParser costParser, INodeParser customerParser, INodeParser descParser, INodeParser idParser, INodeParser dateFillingParser, INodeParser codeParser, INodeParser sourceLinkParser)
         {
             mSourceLinkParser = sourceLinkParser;
             mCodeParser = codeParser;
-            mDateFillingParser = dateFiilingParser;
+            mDateFillingParser = dateFillingParser;
             mDomain = domain;
             mClient = client;
             mDateCreatedParser = dateCreatedParser;

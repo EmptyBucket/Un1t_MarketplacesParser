@@ -6,7 +6,7 @@ namespace ParseZakupki.Parser
 {
     public class MarketplaceParser : IMarketplaceParser
     {
-        private readonly NodeLotParser mNodeLotParser;
+        private readonly INodeLotParser mNodeLotParser;
         private readonly ILotsSpliter mDocumentSpliter;
 
         public IReadOnlyCollection<PurchaseInformation> Parse(HtmlDocument docHtml)
@@ -17,7 +17,7 @@ namespace ParseZakupki.Parser
             return result;
         }
 
-        public MarketplaceParser(NodeLotParser contestNodeParser, ILotsSpliter documentSpliter)
+        public MarketplaceParser(INodeLotParser contestNodeParser, ILotsSpliter documentSpliter)
         {
             mNodeLotParser = contestNodeParser;
             mDocumentSpliter = documentSpliter;

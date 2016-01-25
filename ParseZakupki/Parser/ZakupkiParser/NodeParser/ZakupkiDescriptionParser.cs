@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser
@@ -7,12 +8,19 @@ namespace ParseZakupki.Parser
     {
         public string Parse(HtmlNode node)
         {
-            var desc = node
-                .SelectSingleNode(".//td[@class='descriptTenderTd']/dl/dd[2]/text()")
-                .InnerText
-                .Trim();
-            var decodedDesc = HttpUtility.HtmlDecode(desc);
-            return decodedDesc;
+            try
+            {
+                var desc = node
+                    .SelectSingleNode(".//td[@class='descriptTenderTd']/dl/dd[2]/text()")
+                    .InnerText
+                    .Trim();
+                var decodedDesc = HttpUtility.HtmlDecode(desc);
+                return decodedDesc;
+            }
+            catch (Exception)
+            {
+                return "None";
+            }
         }
     }
 }

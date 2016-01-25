@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System;
+using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser.OTCParser.NodeParser
 {
@@ -6,15 +7,25 @@ namespace ParseZakupki.Parser.OTCParser.NodeParser
     {
         public string Parse(HtmlNode node)
         {
-            var dateFillingStart = node
-                .SelectSingleNode(".//span[@class='result_item__worktime_date']/text()")
-                .InnerText
-                .Trim();
-            var dateFillingEnd = node
-                .SelectSingleNode(".//span[@class='result_item__worktime_date']/text()")
-                .InnerText
-                .Trim();
-            return dateFillingStart + " - " + dateFillingEnd;
+            string dateFillingStart = null;
+            try
+            {
+                dateFillingStart = node
+                    .SelectSingleNode(".//span[@class='result_item__worktime_date']/text()")
+                    .InnerText
+                    .Trim();
+            }
+            catch(Exception) {  }
+            string dateFillingEnd = null;
+            try
+            {
+                dateFillingEnd = node
+                    .SelectSingleNode(".//span[@class='result_item__worktime_date']/text()")
+                    .InnerText
+                    .Trim();
+            }
+            catch (Exception) { }
+            return dateFillingStart == null && dateFillingEnd == null ? "None" : dateFillingStart ?? string.Empty + " - " + dateFillingEnd ?? string.Empty;
         }
     }
 }

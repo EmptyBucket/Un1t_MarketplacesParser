@@ -9,7 +9,6 @@ namespace ParseZakupki.Parser
 
         public string Parse(HtmlNode node)
         {
-            string result;
             try
             {
                 var costNode = node
@@ -27,13 +26,13 @@ namespace ParseZakupki.Parser
                     .SelectSingleNode("./span/text()")
                     .InnerText
                     .Trim();
-                result = cost + res + ' ' + currency;
+                var result = cost + res + ' ' + currency;
+                return result;
             }
             catch (Exception)
             {
-                result = "None";
+                return "None";
             }
-            return result;
         }
     }
 }

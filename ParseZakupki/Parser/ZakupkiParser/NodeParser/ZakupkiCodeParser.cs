@@ -8,7 +8,6 @@ namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
     {
         public string Parse(HtmlNode node)
         {
-            string codes;
             try
             {
                 var codesEnum = node
@@ -17,13 +16,13 @@ namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
                         .SelectSingleNode("./td[2]")
                         .InnerText
                         .Trim());
-                codes = string.Join(" ", codesEnum);
+                var codes = string.Join(" ", codesEnum);
+                return codes;
             }
             catch (Exception)
             {
-                codes = "None";
+                return "None";
             }
-            return codes;
         }
     }
 }
