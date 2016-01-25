@@ -4,7 +4,7 @@ using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser.OTCParser
 {
-    public class OTCLotSpliter : ILotsSpliter
+    public class OTCLotsSpliter : ILotsSpliter
     {
         public IReadOnlyCollection<HtmlNode> DocumentSplit(HtmlDocument doc) =>
             doc

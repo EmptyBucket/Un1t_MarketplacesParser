@@ -67,9 +67,8 @@
   <ItemGroup>
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\IClient.cs" />
-    <Compile Include="Entity\OTCParametersDb.cs" />
     <Compile Include="Entity\PurchaseContext.cs" />
-    <Compile Include="Entity\ZakupkiParametersDb.cs" />
+    <Compile Include="Entity\ParametersDb.cs" />
     <Compile Include="Migrations\201601241008233_InitialCreate.cs" />
     <Compile Include="Migrations\201601241008233_InitialCreate.Designer.cs">
       <DependentUpon>201601241008233_InitialCreate.cs</DependentUpon>
@@ -86,7 +85,16 @@
     <Compile Include="Migrations\201601251437244_ChangeDataStruct.Designer.cs">
       <DependentUpon>201601251437244_ChangeDataStruct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601252001417_MoreChange.cs" />
+    <Compile Include="Migrations\201601252001417_MoreChange.Designer.cs">
+      <DependentUpon>201601252001417_MoreChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601252008277_RemColumsParameters.cs" />
+    <Compile Include="Migrations\201601252008277_RemColumsParameters.Designer.cs">
+      <DependentUpon>201601252008277_RemColumsParameters.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Module\CommonModule.cs" />
     <Compile Include="Module\OTCModule.cs" />
     <Compile Include="Parameter\IParameters.cs" />
     <Compile Include="Parameter\OTCParameter\OTCParameters.cs" />
@@ -102,7 +110,7 @@
     <Compile Include="Parser\OTCParser\NodeParser\OTCDescriptionParser.cs" />
     <Compile Include="Parser\OTCParser\NodeParser\OTCIdParser.cs" />
     <Compile Include="Parser\OTCParser\NodeParser\OTCSourceLinkParser.cs" />
-    <Compile Include="Parser\OTCParser\OTCLotSpliter.cs" />
+    <Compile Include="Parser\OTCParser\OTCLotsSpliter.cs" />
     <Compile Include="Parser\OTCParser\OTCMaxNumberPageParser.cs" />
     <Compile Include="Parser\OTCParser\OTCNodeLotParser.cs" />
     <Compile Include="Parser\ZakupkiParser\ZakupkiNodeLotParser.cs" />
@@ -149,6 +157,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601251437244_ChangeDataStruct.resx">
       <DependentUpon>201601251437244_ChangeDataStruct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601252001417_MoreChange.resx">
+      <DependentUpon>201601252001417_MoreChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601252008277_RemColumsParameters.resx">
+      <DependentUpon>201601252008277_RemColumsParameters.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
