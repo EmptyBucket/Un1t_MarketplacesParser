@@ -1,12 +1,12 @@
 ﻿namespace ParseZakupki.Parameter
 {
-    public class ZakupkiParameter : IParameter
+    public class Parameter
     {
         public IParameterType Type { get; }
 
         public string Value { get; }
 
-        public ZakupkiParameter(IParameterType type, string value)
+        public Parameter(IParameterType type, string value)
         {
             Type = type;
             Value = value;

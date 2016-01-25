@@ -2,14 +2,14 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ParseZakupki.Parameter;
+using HtmlAgilityPack;
 using ParseZakupki.Parser;
 
 namespace ParseZakupki
 {
-    public class ZakupkiUploader
+    public class LotUploader
     {
-        private readonly ZakupkiParameters mParameters;
+        private readonly IParameters mParameters;
         private readonly IUrlBuilder mUrlBuilder;
         private readonly IClient mClient;
         private readonly IMarketplaceParser mMarketPlaceParser;
@@ -17,13 +17,14 @@ namespace ParseZakupki
 
         public IReadOnlyCollection<PurchaseInformation> FirstUpload(out int maxNumberPage)
         {
-            string url = mUrlBuilder.Build(mParameters);
-            var result = mClient.GetResult(url);
-            var parsedResult = mMarketPlaceParser.Parse(result);
-
+            var url = new Uri(mUrlBuilder.Build(mParameters));
+            var docTxt = mClient.GetResult(url);
+            var docHtml = new HtmlDocument();
+            docHtml.LoadHtml(docTxt);
+            var parsedResult = mMarketPlaceParser.Parse(docHtml);
             try
             {
-                maxNumberPage = mMaxNumberPageParser.Parse(result);
+                maxNumberPage = mMaxNumberPageParser.Parse(docHtml);
             }
             catch (NullReferenceException)
             {
@@ -39,9 +40,11 @@ namespace ParseZakupki
             for (int i = 2; i <= maxNumberPage; i++)
             {
                 mParameters.PageNumber = i;
-                string tmpUrl = mUrlBuilder.Build(mParameters);
-                var tmpResult = mClient.GetResult(tmpUrl);
-                var tmpParsedResult = mMarketPlaceParser.Parse(tmpResult);
+                var tmpUrl = new Uri(mUrlBuilder.Build(mParameters));
+                var tmpDocTxt = mClient.GetResult(tmpUrl);
+                var docHtml = new HtmlDocument();
+                docHtml.LoadHtml(tmpDocTxt);
+                var tmpParsedResult = mMarketPlaceParser.Parse(docHtml);
                 listPurchase.AddRange(tmpParsedResult);
             }
             return listPurchase.ToArray();
@@ -55,15 +58,17 @@ namespace ParseZakupki
             for (int i = 2; i <= maxNumberPage; i++)
             {
                 mParameters.PageNumber = i;
-                string tmpUrl = mUrlBuilder.Build(mParameters);
+                var tmpUrl = new Uri(mUrlBuilder.Build(mParameters));
                 listTask.Add(mClient.GetResultAsync(tmpUrl));
             }
             var exceptions = new ConcurrentQueue<Exception>();
             try
             {
-                foreach (var result in await Task.WhenAll(listTask))
+                foreach (var docTxt in await Task.WhenAll(listTask))
                 {
-                    var tmpParsedResult = mMarketPlaceParser.Parse(result);
+                    var docHtml = new HtmlDocument();
+                    docHtml.Load(docTxt);
+                    var tmpParsedResult = mMarketPlaceParser.Parse(docHtml);
                     listPurchase.AddRange(tmpParsedResult);
                 }
             }
@@ -81,15 +86,17 @@ namespace ParseZakupki
             Parallel.For(2, maxNumberPage + 1, i =>
             {
                 mParameters.PageNumber = i;
-                string tmpUrl = mUrlBuilder.Build(mParameters);
-                var tmpResult = mClient.GetResult(tmpUrl);
-                var tmpParsedResult = mMarketPlaceParser.Parse(tmpResult);
+                var tmpUrl = new Uri(mUrlBuilder.Build(mParameters));
+                var tmpDocTxt = mClient.GetResult(tmpUrl);
+                var tmpDocHtml = new HtmlDocument();
+                tmpDocHtml.Load(tmpDocTxt);
+                var tmpParsedResult = mMarketPlaceParser.Parse(tmpDocHtml);
                 listPurchase.AddRange(tmpParsedResult);
             });
             return listPurchase;
         }
 
-        public ZakupkiUploader(ZakupkiParameters parameters, IUrlBuilder urlBuilder, IClient client, IMarketplaceParser marketPlaceParser, IMaxNumberPageParser maxNumberPageParser)
+        public LotUploader(IParameters parameters, IUrlBuilder urlBuilder, IClient client, IMarketplaceParser marketPlaceParser, IMaxNumberPageParser maxNumberPageParser)
         {
             mParameters = parameters;
             mUrlBuilder = urlBuilder;

@@ -8,13 +8,11 @@ namespace ParseZakupki
     {
         static void Main(string[] args)
         {
-            //var result = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "TextFile1.txt"));
-
             ZakupkiParametersDb parameters;
             using (var dbContext = new PurchaseInformationContext())
                 parameters = dbContext.Parameters.ToArray().Last();
-            var kernel = new StandardKernel(new Module(parameters));
-            var zakupkiParser = kernel.Get<ZakupkiUploader>();
+            var kernel = new StandardKernel(new ZakupkiModule(parameters));
+            var zakupkiParser = kernel.Get<LotUploader>();
             var result = zakupkiParser.Upload();
             using (var dbContext = new PurchaseInformationContext())
             {

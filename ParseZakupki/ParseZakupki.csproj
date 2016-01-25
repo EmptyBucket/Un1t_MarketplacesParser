@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\IClient.cs" />
+    <Compile Include="Entity\OTCParametersDb.cs" />
     <Compile Include="Entity\PurchaseContext.cs" />
     <Compile Include="Entity\ZakupkiParametersDb.cs" />
     <Compile Include="Migrations\201601241008233_InitialCreate.cs" />
@@ -81,41 +82,60 @@
     <Compile Include="Migrations\201601241555179_RemovePageNumberFromParameters.Designer.cs">
       <DependentUpon>201601241555179_RemovePageNumberFromParameters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601251437244_ChangeDataStruct.cs" />
+    <Compile Include="Migrations\201601251437244_ChangeDataStruct.Designer.cs">
+      <DependentUpon>201601251437244_ChangeDataStruct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Module.cs" />
-    <Compile Include="Parameter\IParameter.cs" />
-    <Compile Include="Parameter\ZakupkiParameter.cs" />
-    <Compile Include="Parameter\Type\IParameterType.cs" />
-    <Compile Include="Parameter\ZakupkiParameters.cs" />
+    <Compile Include="Module\OTCModule.cs" />
+    <Compile Include="Parameter\IParameters.cs" />
+    <Compile Include="Parameter\OTCParameter\OTCParameters.cs" />
+    <Compile Include="Parameter\OTCParameter\OTCParametersType.cs" />
+    <Compile Include="Parser\ILotsSpliter.cs" />
+    <Compile Include="Parser\INodeLotParser.cs" />
+    <Compile Include="Parser\Common\MarketplaceParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCCodeParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCCostParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCCustomerParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCDateCreatedParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCDateFillingParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCDescriptionParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCIdParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCSourceLinkParser.cs" />
+    <Compile Include="Parser\OTCParser\OTCLotSpliter.cs" />
+    <Compile Include="Parser\OTCParser\OTCMaxNumberPageParser.cs" />
+    <Compile Include="Parser\OTCParser\OTCNodeLotParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\ZakupkiNodeLotParser.cs" />
+    <Compile Include="UrlBuilder\OTCUrlBuilder.cs" />
+    <Compile Include="Module\ZakupkiModule.cs" />
+    <Compile Include="Parameter\Parameter.cs" />
+    <Compile Include="Parameter\IParameterType.cs" />
+    <Compile Include="Parameter\ZakupkiParameter\ZakupkiParameters.cs" />
     <Compile Include="Parser\IMarketplaceParser.cs" />
     <Compile Include="Parser\IMaxNumberPageParser.cs" />
-    <Compile Include="Parser\INodeContestParser.cs" />
-    <Compile Include="Parser\NodeParser\ZakupkiCostParser.cs" />
-    <Compile Include="Parser\NodeParser\ZakupkiCreatedParser.cs" />
-    <Compile Include="Parser\NodeParser\ZakupkiCustomerParser.cs" />
-    <Compile Include="Parser\NodeParser\ZakupkiDescriptionParser.cs" />
-    <Compile Include="Parser\ZakupkiMarketplaceParser.cs" />
-    <Compile Include="Parser\NodeParser\ZakupkiIdParser.cs" />
-    <Compile Include="Parser\NodeParser\INodeParser.cs" />
-    <Compile Include="Parser\ZakupkiMaxNumberPageParser.cs" />
-    <Compile Include="Parser\NodeContestParser.cs" />
-    <Compile Include="Parser\NodeParser\ZakupkiUpdatedParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiCodeParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiCostParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiDateCreatedParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiCustomerParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiDateFillingParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiDescriptionParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiSourceLinkParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\ZakupkiLotsSpliter.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiIdParser.cs" />
+    <Compile Include="Parser\INodeParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\ZakupkiMaxNumberPageParser.cs" />
+    <Compile Include="Parser\Common\NodeLotParser.cs" />
     <Compile Include="Entity\PurchaseInformation.cs" />
     <Compile Include="UrlBuilder\IUrlBuilder.cs" />
-    <Compile Include="Parameter\Type\ZakupkiParameterType.cs" />
+    <Compile Include="Parameter\ZakupkiParameter\ZakupkiParameterType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlBuilder\ZakupkiUrlBuilder.cs" />
-    <Compile Include="ZakupkiUploader.cs" />
+    <Compile Include="LotUploader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TextFile1.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201601241008233_InitialCreate.resx">
@@ -127,7 +147,11 @@
     <EmbeddedResource Include="Migrations\201601241555179_RemovePageNumberFromParameters.resx">
       <DependentUpon>201601241555179_RemovePageNumberFromParameters.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601251437244_ChangeDataStruct.resx">
+      <DependentUpon>201601251437244_ChangeDataStruct.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

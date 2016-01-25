@@ -5,14 +5,12 @@ namespace ParseZakupki.Parser
 {
     public class ZakupkiMaxNumberPageParser : IMaxNumberPageParser
     {
-        public int Parse(string txtDoc)
+        public int Parse(HtmlDocument htmlDoc)
         {
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(txtDoc);
             var maxPageNumberToHideJs = htmlDoc.DocumentNode
-                .SelectSingleNode(".//li[@class='rightArrow']/a")
-                .Attributes["href"]
-                .Value;
+                .SelectSingleNode(".//li[@class='rightArrow']/a/@href")
+                .InnerText
+                .Trim();
             var maxNumberPageParser =
                 from trash in Sprache.Parse.AnyChar.Except(Sprache.Parse.Digit).Many()
                 from number in Sprache.Parse.Decimal

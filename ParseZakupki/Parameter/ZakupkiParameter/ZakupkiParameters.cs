@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace ParseZakupki.Parameter
 {
-    public class ZakupkiParameters : IReadOnlyDictionary<IParameterType, IParameter>, ICloneable
+    public class ZakupkiParameters : IReadOnlyDictionary<IParameterType, Parameter>, ICloneable, IParameters
     {
         public const int MaxRecordsPerPage = 500;
 
-        private Dictionary<IParameterType, IParameter> mParameters = new Dictionary<IParameterType, IParameter>();
+        private Dictionary<IParameterType, Parameter> mParameters = new Dictionary<IParameterType, Parameter>();
 
         private int mPageNumber;
         public int PageNumber
@@ -21,7 +21,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mPageNumber = value;
-                mParameters[ZakupkiParameterType.PageNumber] = new ZakupkiParameter(ZakupkiParameterType.PageNumber, value.ToString());
+                mParameters[ZakupkiParameterType.PageNumber] = new Parameter(ZakupkiParameterType.PageNumber, value.ToString());
             }
         }
         private int mRecordsPerPage;
@@ -34,7 +34,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mRecordsPerPage = value;
-                mParameters[ZakupkiParameterType.RecordsPerPage] = new ZakupkiParameter(ZakupkiParameterType.RecordsPerPage, '_' + value.ToString());
+                mParameters[ZakupkiParameterType.RecordsPerPage] = new Parameter(ZakupkiParameterType.RecordsPerPage, '_' + value.ToString());
             }
         }
         private long mCostFrom;
@@ -47,7 +47,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mCostFrom = value;
-                mParameters[ZakupkiParameterType.PriceFrom] = new ZakupkiParameter(ZakupkiParameterType.PriceFrom, value.ToString());
+                mParameters[ZakupkiParameterType.PriceFrom] = new Parameter(ZakupkiParameterType.PriceFrom, value.ToString());
             }
         }
         private long mCostTo;
@@ -60,7 +60,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mCostTo = value;
-                mParameters[ZakupkiParameterType.PriceTo] = new ZakupkiParameter(ZakupkiParameterType.PriceTo, value.ToString());
+                mParameters[ZakupkiParameterType.PriceTo] = new Parameter(ZakupkiParameterType.PriceTo, value.ToString());
             }
         }
         private DateTime mPublishDateFrom;
@@ -73,7 +73,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mPublishDateFrom = value;
-                mParameters[ZakupkiParameterType.PublishDateFrom] = new ZakupkiParameter(ZakupkiParameterType.PublishDateFrom, value.ToString("d"));
+                mParameters[ZakupkiParameterType.PublishDateFrom] = new Parameter(ZakupkiParameterType.PublishDateFrom, value.ToString("d"));
             }
         }
         private DateTime mPublishDateTo;
@@ -86,7 +86,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mPublishDateTo = value;
-                mParameters[ZakupkiParameterType.PublishDateTo] = new ZakupkiParameter(ZakupkiParameterType.PublishDateTo, value.ToString("d"));
+                mParameters[ZakupkiParameterType.PublishDateTo] = new Parameter(ZakupkiParameterType.PublishDateTo, value.ToString("d"));
             }
         }
         private bool mFz44;
@@ -99,7 +99,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mFz44 = value;
-                mParameters[ZakupkiParameterType.Fz44] = new ZakupkiParameter(ZakupkiParameterType.Fz44, value ? "on" : null);
+                mParameters[ZakupkiParameterType.Fz44] = new Parameter(ZakupkiParameterType.Fz44, value ? "on" : null);
             }
         }
         private bool mFz223;
@@ -112,7 +112,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mFz223 = value;
-                mParameters[ZakupkiParameterType.Fz223] = new ZakupkiParameter(ZakupkiParameterType.Fz223, value ? "on" : null);
+                mParameters[ZakupkiParameterType.Fz223] = new Parameter(ZakupkiParameterType.Fz223, value ? "on" : null);
             }
         }
         private bool mFz94;
@@ -125,7 +125,7 @@ namespace ParseZakupki.Parameter
             set
             {
                 mFz94 = value;
-                mParameters[ZakupkiParameterType.Fz94] = new ZakupkiParameter(ZakupkiParameterType.Fz94, value ? "on" : null);
+                mParameters[ZakupkiParameterType.Fz94] = new Parameter(ZakupkiParameterType.Fz94, value ? "on" : null);
             }
         }
 
@@ -137,7 +137,7 @@ namespace ParseZakupki.Parameter
             }
         }
 
-        public IEnumerable<IParameter> Values
+        public IEnumerable<Parameter> Values
         {
             get
             {
@@ -153,7 +153,7 @@ namespace ParseZakupki.Parameter
             }
         }
 
-        public IParameter this[IParameterType key]
+        public Parameter this[IParameterType key]
         {
             get
             {
@@ -177,8 +177,8 @@ namespace ParseZakupki.Parameter
             PublishDateFrom = DateTime.Now;
             PublishDateTo = DateTime.Now;
             Fz44 = true;
-            Fz94 = false;
             Fz223 = false;
+            Fz94 = false;
         }
 
         public override string ToString()
@@ -191,12 +191,12 @@ namespace ParseZakupki.Parameter
             return mParameters.ContainsKey(key);
         }
 
-        public bool TryGetValue(IParameterType key, out IParameter value)
+        public bool TryGetValue(IParameterType key, out Parameter value)
         {
             return mParameters.TryGetValue(key, out value);
         }
 
-        public IEnumerator<KeyValuePair<IParameterType, IParameter>> GetEnumerator()
+        public IEnumerator<KeyValuePair<IParameterType, Parameter>> GetEnumerator()
         {
             return mParameters.GetEnumerator();
         }

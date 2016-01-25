@@ -1,7 +1,9 @@
-﻿namespace ParseZakupki.Parser
+﻿using HtmlAgilityPack;
+
+namespace ParseZakupki.Parser
 {
     public interface IMaxNumberPageParser
     {
-        int Parse(string txtDoc);
+        int Parse(HtmlDocument txtDoc);
     }
 }

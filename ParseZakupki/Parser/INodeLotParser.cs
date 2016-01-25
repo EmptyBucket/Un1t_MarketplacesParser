@@ -2,7 +2,7 @@
 
 namespace ParseZakupki.Parser
 {
-    public interface INodeContestParser
+    public interface INodeLotParser
     {
         PurchaseInformation Parse(HtmlNode node);
     }

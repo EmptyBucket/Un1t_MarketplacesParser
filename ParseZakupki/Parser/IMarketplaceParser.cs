@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser
 {
     public interface IMarketplaceParser
     {
-        IReadOnlyCollection<PurchaseInformation> Parse(string txtDoc);
+        IReadOnlyCollection<PurchaseInformation> Parse(HtmlDocument txtDoc);
     }
 }

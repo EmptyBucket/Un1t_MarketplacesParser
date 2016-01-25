@@ -5,6 +5,8 @@ namespace ParseZakupki.Parser
 {
     public class ZakupkiCostParser : INodeParser
     {
+        private static string NoBreakSpace = '\u00A0'.ToString();
+
         public string Parse(HtmlNode node)
         {
             string result;
@@ -15,7 +17,8 @@ namespace ParseZakupki.Parser
                 var cost = costNode
                     .SelectSingleNode("./strong/text()")
                     .InnerText
-                    .Trim();
+                    .Trim()
+                    .Replace(NoBreakSpace, string.Empty);
                 var res = costNode
                     .SelectSingleNode("./strong/span/text()")
                     .InnerText
@@ -28,7 +31,7 @@ namespace ParseZakupki.Parser
             }
             catch (Exception)
             {
-                result = "There is no";
+                result = "None";
             }
             return result;
         }

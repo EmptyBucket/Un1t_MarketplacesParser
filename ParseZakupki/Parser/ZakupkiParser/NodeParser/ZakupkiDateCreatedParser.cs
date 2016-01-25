@@ -2,12 +2,12 @@
 
 namespace ParseZakupki.Parser
 {
-    public class ZakupkiUpdatedParser : INodeParser
+    public class ZakupkiDateCreatedParser : INodeParser
     {
         public string Parse(HtmlNode node)
         {
             var createdNode = node
-                .SelectSingleNode(".//td[@class='amountTenderTd']/ul/li[2]/text()");
+                .SelectSingleNode(".//td[@class='amountTenderTd']/ul/li[1]/text()");
             var created = createdNode
                 .InnerHtml
                 .Trim();

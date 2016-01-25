@@ -23,7 +23,7 @@ namespace ParseZakupki
 
         private HttpWebRequest CreateRequest(string url) => CreateRequest(new Uri(url));
 
-        public string GetResult(string url)
+        public string GetResult(Uri url)
         {
             var request = CreateRequest(url);
             using (var response = request.GetResponse())
@@ -32,7 +32,7 @@ namespace ParseZakupki
                 return streamReader.ReadToEnd();
         }
 
-        public async Task<string> GetResultAsync(string url)
+        public async Task<string> GetResultAsync(Uri url)
         {
             var request = CreateRequest(url);
             using (var response = await request.GetResponseAsync())

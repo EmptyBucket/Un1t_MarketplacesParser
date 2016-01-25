@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace ParseZakupki
 {
     public interface IClient
     {
-        string GetResult(string url);
+        string GetResult(Uri url);
 
-        Task<string> GetResultAsync(string url);
+        Task<string> GetResultAsync(Uri url);
     }
 }
