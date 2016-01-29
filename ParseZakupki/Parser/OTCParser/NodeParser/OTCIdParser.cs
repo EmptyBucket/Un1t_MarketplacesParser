@@ -1,9 +1,10 @@
 ﻿using System;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.OTCParser.NodeParser
 {
-    public class OTCIdParser : INodeParser
+    public class OtcIdParser : INodeParser
     {
         public string Parse(HtmlNode node)
         {

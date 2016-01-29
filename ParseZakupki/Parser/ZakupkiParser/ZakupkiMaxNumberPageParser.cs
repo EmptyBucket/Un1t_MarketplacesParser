@@ -1,7 +1,8 @@
 ﻿using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 using Sprache;
 
-namespace ParseZakupki.Parser
+namespace ParseZakupki.Parser.ZakupkiParser
 {
     public class ZakupkiMaxNumberPageParser : IMaxNumberPageParser
     {

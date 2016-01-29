@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Web;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
-namespace ParseZakupki.Parser
+namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
 {
     public class ZakupkiDescriptionParser : INodeParser
     {

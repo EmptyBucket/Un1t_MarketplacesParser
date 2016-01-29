@@ -1,4 +1,4 @@
-﻿namespace ParseZakupki.Parameter
+﻿namespace ParseZakupki.Parameter.Common
 {
     public class Parameter
     {

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using ParseZakupki.Parameter.Common;
 
-namespace ParseZakupki
+namespace ParseZakupki.UrlBuilder
 {
     public interface IUrlBuilder
     {
-        string Build(IReadOnlyDictionary<IParameterType, Parameter.Parameter> parameters);
+        string Build(IParameters parameters);
     }
 }

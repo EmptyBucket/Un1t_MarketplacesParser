@@ -1,4 +1,4 @@
-﻿namespace ParseZakupki
+﻿namespace ParseZakupki.Parameter.Common
 {
     public interface IParameterType
     {

@@ -1,47 +1,48 @@
 ﻿using System;
 using ParseZakupki.Entity;
+using ParseZakupki.LotUpload;
+using ParseZakupki.Parameter.Common;
 using ParseZakupki.Parameter.OTCParameter;
-using ParseZakupki.Parser;
+using ParseZakupki.Parser.Common;
 using ParseZakupki.Parser.OTCParser;
 using ParseZakupki.Parser.OTCParser.NodeParser;
-using ParseZakupki.UrlBuilder.ZakupkiUrlBuilder;
+using ParseZakupki.UrlBuilder;
 
-namespace ParseZakupki
+namespace ParseZakupki.Module
 {
-    public class OTCModule : Ninject.Modules.NinjectModule
+    public class OtcModule : CommonModule
     {
-        private readonly ParametersDb mParameters;
+        private readonly ParametersDb _parameters;
 
         public override void Load()
         {
-            Bind<IParameters>().To<OTCParameters>();
-            Bind<IParameterType>().To<OTCParametersType>();
-            Bind<IUrlBuilder>().To<OTCUrlBuilder>();
-            Bind<ILotsSpliter>().To<OTCLotsSpliter>();
-            Bind<INodeLotParser>().To<OTCNodeLotParser>()
-                .WithConstructorArgument("domain", new Uri("http://tender.otc.ru"))
-                .WithConstructorArgument("dateCreatedParser", new OTCDateCreatedParser())
-                .WithConstructorArgument("costParser", new OTCCostParser())
-                .WithConstructorArgument("customerParser", new OTCCustomerParser())
-                .WithConstructorArgument("descParser", new OTCDescriptionParser())
-                .WithConstructorArgument("idParser", new OTCIdParser())
-                .WithConstructorArgument("dateFiilingParser", new OTCDateFillingParser())
-                .WithConstructorArgument("codeParser", new OTCCodeParser())
-                .WithConstructorArgument("sourceLinkParser", new OTCSourceLinkParser());
-            Bind<IMaxNumberPageParser>().To<OTCMaxNumberPageParser>();
-            Bind<OTCParameters>().ToSelf()
-                .WithPropertyValue("CostFrom", mParameters.CostFrom)
-                .WithPropertyValue("CostTo", mParameters.CostTo)
-                .WithPropertyValue("PublishDateFrom", mParameters.PublishDateFrom)
-                .WithPropertyValue("PublishDateTo", mParameters.PublishDateTo);
+            base.Load();
 
-                //.WithPropertyValue("PublishDateFrom", DateTime.Now.AddDays(-7))
-                //.WithPropertyValue("PublishDateTo", DateTime.Now);
+            Bind<ILotUploader>().To<LotUploader>();
+            Bind<IPageParameters>().To<OtcParameters>()
+                .WithPropertyValue("CostFrom", _parameters.CostFrom)
+                .WithPropertyValue("CostTo", _parameters.CostTo)
+                .WithPropertyValue("PublishDateFrom", _parameters.PublishDateFrom)
+                .WithPropertyValue("PublishDateTo", _parameters.PublishDateTo);
+            Bind<IParameterType>().To<OtcParametersType>();
+            Bind<IMaxNumberPageParser>().To<OtcMaxNumberPageParser>();
+            Bind<IUrlBuilder>().To<OtcUrlBuilder>();
+            Bind<ILotsSpliter>().To<OtcLotsSpliter>();
+            Bind<INodeLotParser>().To<OtcNodeLotParser>()
+                .WithConstructorArgument("domain", new Uri("http://tender.otc.ru"))
+                .WithConstructorArgument("dateCreatedParser", new OtcDateCreatedParser())
+                .WithConstructorArgument("costParser", new OtcCostParser())
+                .WithConstructorArgument("customerParser", new OtcCustomerParser())
+                .WithConstructorArgument("descParser", new OtcDescriptionParser())
+                .WithConstructorArgument("idParser", new OtcIdParser())
+                .WithConstructorArgument("dateFillingParser", new OtcDateFillingParser())
+                .WithConstructorArgument("codeParser", new OtcCodeParser())
+                .WithConstructorArgument("sourceLinkParser", new OtcSourceLinkParser());
         }
 
-        public OTCModule(ParametersDb parameters)
+        public OtcModule(ParametersDb parameters)
         {
-            mParameters = parameters;
+            _parameters = parameters;
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.OTCParser.NodeParser
 {
-    public class OTCDateFillingParser : INodeParser
+    public class OtcDateFillingParser : INodeParser
     {
         public string Parse(HtmlNode node)
         {
@@ -15,7 +16,10 @@ namespace ParseZakupki.Parser.OTCParser.NodeParser
                     .InnerText
                     .Trim();
             }
-            catch(Exception) {  }
+            catch (Exception)
+            {
+                // ignored
+            }
             string dateFillingEnd = null;
             try
             {
@@ -24,8 +28,11 @@ namespace ParseZakupki.Parser.OTCParser.NodeParser
                     .InnerText
                     .Trim();
             }
-            catch (Exception) { }
-            return dateFillingStart == null && dateFillingEnd == null ? "None" : dateFillingStart ?? string.Empty + " - " + dateFillingEnd ?? string.Empty;
+            catch (Exception)
+            {
+                // ignored
+            }
+            return dateFillingStart == null && dateFillingEnd == null ? "None" : (dateFillingStart ?? string.Empty) + " - " + (dateFillingEnd ?? string.Empty);
         }
     }
 }

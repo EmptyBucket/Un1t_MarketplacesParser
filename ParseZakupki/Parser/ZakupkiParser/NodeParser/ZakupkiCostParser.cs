@@ -1,11 +1,12 @@
 ﻿using System;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
-namespace ParseZakupki.Parser
+namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
 {
     public class ZakupkiCostParser : INodeParser
     {
-        private static string NoBreakSpace = '\u00A0'.ToString();
+        private static readonly string NoBreakSpace = '\u00A0'.ToString();
 
         public string Parse(HtmlNode node)
         {

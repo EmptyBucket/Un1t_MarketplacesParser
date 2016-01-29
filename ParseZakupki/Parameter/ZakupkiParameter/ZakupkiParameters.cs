@@ -2,169 +2,152 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ParseZakupki.Parameter.Common;
 
-namespace ParseZakupki.Parameter
+namespace ParseZakupki.Parameter.ZakupkiParameter
 {
-    public class ZakupkiParameters : IReadOnlyDictionary<IParameterType, Parameter>, ICloneable, IParameters
+    public class ZakupkiParameters : IReadOnlyDictionary<IParameterType, Common.Parameter>, IPageParameters
     {
         public const int MaxRecordsPerPage = 500;
 
-        private Dictionary<IParameterType, Parameter> mParameters = new Dictionary<IParameterType, Parameter>();
+        private readonly Dictionary<IParameterType, Common.Parameter> _parameters = new Dictionary<IParameterType, Common.Parameter>();
 
-        private int mPageNumber;
+        private int _pageNumber;
         public int PageNumber
         {
             get
             {
-                return mPageNumber;
+                return _pageNumber;
             }
             set
             {
-                mPageNumber = value;
-                mParameters[ZakupkiParameterType.PageNumber] = new Parameter(ZakupkiParameterType.PageNumber, value.ToString());
+                _pageNumber = value;
+                _parameters[ZakupkiParameterType.PageNumber] = new Common.Parameter(ZakupkiParameterType.PageNumber, value.ToString());
             }
         }
-        private int mRecordsPerPage;
+        private int _recordsPerPage;
         public int RecordsPerPage
         {
             get
             {
-                return mRecordsPerPage;
+                return _recordsPerPage;
             }
             set
             {
-                mRecordsPerPage = value;
-                mParameters[ZakupkiParameterType.RecordsPerPage] = new Parameter(ZakupkiParameterType.RecordsPerPage, '_' + value.ToString());
+                _recordsPerPage = value;
+                _parameters[ZakupkiParameterType.RecordsPerPage] = new Common.Parameter(ZakupkiParameterType.RecordsPerPage, '_' + value.ToString());
             }
         }
-        private long mCostFrom;
+        private long _costFrom;
         public long CostFrom
         {
             get
             {
-                return mCostFrom;
+                return _costFrom;
             }
             set
             {
-                mCostFrom = value;
-                mParameters[ZakupkiParameterType.PriceFrom] = new Parameter(ZakupkiParameterType.PriceFrom, value.ToString());
+                _costFrom = value;
+                _parameters[ZakupkiParameterType.PriceFrom] = new Common.Parameter(ZakupkiParameterType.PriceFrom, value.ToString());
             }
         }
-        private long mCostTo;
+        private long _costTo;
         public long CostTo
         {
             get
             {
-                return mCostTo;
+                return _costTo;
             }
             set
             {
-                mCostTo = value;
-                mParameters[ZakupkiParameterType.PriceTo] = new Parameter(ZakupkiParameterType.PriceTo, value.ToString());
+                _costTo = value;
+                _parameters[ZakupkiParameterType.PriceTo] = new Common.Parameter(ZakupkiParameterType.PriceTo, value.ToString());
             }
         }
-        private DateTime mPublishDateFrom;
+        private DateTime _publishDateFrom;
         public DateTime PublishDateFrom
         {
             get
             {
-                return mPublishDateFrom;
+                return _publishDateFrom;
             }
             set
             {
-                mPublishDateFrom = value;
-                mParameters[ZakupkiParameterType.PublishDateFrom] = new Parameter(ZakupkiParameterType.PublishDateFrom, value.ToString("d"));
+                _publishDateFrom = value;
+                _parameters[ZakupkiParameterType.PublishDateFrom] = new Common.Parameter(ZakupkiParameterType.PublishDateFrom, value.ToString("d"));
             }
         }
-        private DateTime mPublishDateTo;
+        private DateTime _publishDateTo;
         public DateTime PublishDateTo
         {
             get
             {
-                return mPublishDateTo;
+                return _publishDateTo;
             }
             set
             {
-                mPublishDateTo = value;
-                mParameters[ZakupkiParameterType.PublishDateTo] = new Parameter(ZakupkiParameterType.PublishDateTo, value.ToString("d"));
+                _publishDateTo = value;
+                _parameters[ZakupkiParameterType.PublishDateTo] = new Common.Parameter(ZakupkiParameterType.PublishDateTo, value.ToString("d"));
             }
         }
-        private bool mFz44;
+        private bool _fz44;
         public bool Fz44
         {
             get
             {
-                return mFz44;
+                return _fz44;
             }
             set
             {
-                mFz44 = value;
-                mParameters[ZakupkiParameterType.Fz44] = new Parameter(ZakupkiParameterType.Fz44, value ? "on" : null);
+                _fz44 = value;
+                _parameters[ZakupkiParameterType.Fz44] = new Common.Parameter(ZakupkiParameterType.Fz44, value ? "on" : null);
             }
         }
-        private bool mFz223;
+        private bool _fz223;
         public bool Fz223
         {
             get
             {
-                return mFz223;
+                return _fz223;
             }
             set
             {
-                mFz223 = value;
-                mParameters[ZakupkiParameterType.Fz223] = new Parameter(ZakupkiParameterType.Fz223, value ? "on" : null);
+                _fz223 = value;
+                _parameters[ZakupkiParameterType.Fz223] = new Common.Parameter(ZakupkiParameterType.Fz223, value ? "on" : null);
             }
         }
-        private bool mFz94;
+        private bool _fz94;
         public bool Fz94
         {
             get
             {
-                return mFz94;
+                return _fz94;
             }
             set
             {
-                mFz94 = value;
-                mParameters[ZakupkiParameterType.Fz94] = new Parameter(ZakupkiParameterType.Fz94, value ? "on" : null);
+                _fz94 = value;
+                _parameters[ZakupkiParameterType.Fz94] = new Common.Parameter(ZakupkiParameterType.Fz94, value ? "on" : null);
             }
         }
 
-        public IEnumerable<IParameterType> Keys
-        {
-            get
-            {
-                return mParameters.Keys;
-            }
-        }
+        public IEnumerable<IParameterType> Keys => _parameters.Keys;
 
-        public IEnumerable<Parameter> Values
-        {
-            get
-            {
-                return mParameters.Values;
-            }
-        }
+        public IEnumerable<Common.Parameter> Values => _parameters.Values;
 
-        public int Count
-        {
-            get
-            {
-                return mParameters.Count;
-            }
-        }
+        public int Count => _parameters.Count;
 
-        public Parameter this[IParameterType key]
+        public Common.Parameter this[IParameterType key]
         {
             get
             {
-                return mParameters[key];
+                return _parameters[key];
             }
             private set
             {
                 if (value != null)
-                    mParameters[key] = value;
+                    _parameters[key] = value;
                 else
-                    mParameters.Remove(key);
+                    _parameters.Remove(key);
             }
         }
 
@@ -181,30 +164,15 @@ namespace ParseZakupki.Parameter
             Fz94 = false;
         }
 
-        public override string ToString()
-        {
-            return string.Join(string.Empty, mParameters.Select(parameter => parameter.Value.ToString()));
-        }
+        public override string ToString() => string.Join(string.Empty, _parameters.Select(parameter => parameter.Value.ToString()));
 
-        public bool ContainsKey(IParameterType key)
-        {
-            return mParameters.ContainsKey(key);
-        }
+        public bool ContainsKey(IParameterType key) => _parameters.ContainsKey(key);
 
-        public bool TryGetValue(IParameterType key, out Parameter value)
-        {
-            return mParameters.TryGetValue(key, out value);
-        }
+        public bool TryGetValue(IParameterType key, out Common.Parameter value) => _parameters.TryGetValue(key, out value);
 
-        public IEnumerator<KeyValuePair<IParameterType, Parameter>> GetEnumerator()
-        {
-            return mParameters.GetEnumerator();
-        }
+        public IEnumerator<KeyValuePair<IParameterType, Common.Parameter>> GetEnumerator() => _parameters.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return mParameters.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => _parameters.GetEnumerator();
 
         public object Clone() => MemberwiseClone();
     }

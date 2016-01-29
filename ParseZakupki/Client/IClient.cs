@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ParseZakupki
+namespace ParseZakupki.Client
 {
     public interface IClient
     {

@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
+using ParseZakupki.Entity;
 
-namespace ParseZakupki.Parser
+namespace ParseZakupki.Parser.Common
 {
     public interface INodeLotParser
     {

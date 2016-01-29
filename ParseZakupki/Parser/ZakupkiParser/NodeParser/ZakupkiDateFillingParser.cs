@@ -1,5 +1,6 @@
 ﻿using System;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
 {
@@ -16,16 +17,23 @@ namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
                     .InnerText
                     .Trim();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                // ignored
+            }
             try
             {
                 endDateFilling = node
-                    .SelectSingleNode(".//td[contains(text(), 'Дата и время начала') and contains(text(), 'подачи') and contains(text(), 'заявок')]/following-sibling::td/text()")
+                    .SelectSingleNode(".//td[contains(text(), 'Дата и время окончания') and contains(text(), 'подачи') and contains(text(), 'заявок')]/following-sibling::td/text()")
                     .InnerText
                     .Trim();
             }
-            catch (Exception) { }
-            return startDateFilling == null && endDateFilling == null ? "None" : startDateFilling ?? string.Empty + " - " + endDateFilling ?? string.Empty;
+            catch (Exception)
+            {
+                // ignored
+            }
+            var result = startDateFilling == null && endDateFilling == null ? "None" : (startDateFilling ?? string.Empty) + " - " + (endDateFilling ?? string.Empty);
+            return result;
         }
     }
 }

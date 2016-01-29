@@ -1,36 +1,43 @@
 ﻿using System;
 using System.Linq;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.OTCParser.NodeParser
 {
-    public class OTCCodeParser : INodeParser
+    public class OtcCodeParser : INodeParser
     {
         public string Parse(HtmlNode node)
         {
-            string codeOKVED = null;
+            string codeOkved = null;
             try
             {
-                codeOKVED = node
+                codeOkved = node
                     .SelectSingleNode(".//span[@id='BaseMainContent_MainContent_ucTradeLotViewList_rptLots_ucTradeLotView_0_fvOkved2_0_lblValue_0']/text()")
                     .InnerText
                     .Trim()
                     .Split(' ')
                     .First();
             }
-            catch (Exception) { }
-            string codeOKPD = null;
+            catch (Exception)
+            {
+                // ignored
+            }
+            string codeOkpd = null;
             try
             {
-                codeOKPD = node
+                codeOkpd = node
                 .SelectSingleNode(".//span[@id='BaseMainContent_MainContent_ucTradeLotViewList_rptLots_ucTradeLotView_0_fvOkpd2_0_lblValue_0']/text()")
                 .InnerText
                 .Trim()
                 .Split(' ')
                 .First();
             }
-            catch (Exception) { }
-            return codeOKVED ?? string.Empty + (codeOKVED != null ? ' ' + codeOKVED : string.Empty);
+            catch (Exception)
+            {
+                // ignored
+            }
+            return codeOkved ?? string.Empty + (codeOkpd != null ? ' ' + codeOkpd : string.Empty);
         }
     }
 }

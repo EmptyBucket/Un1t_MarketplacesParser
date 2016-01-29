@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
 {
@@ -10,14 +10,11 @@ namespace ParseZakupki.Parser.ZakupkiParser.NodeParser
         {
             try
             {
-                var codesEnum = node
-                    .SelectNodes(".//tr[@class='tdHead']/following-sibling::tr[count(td)=6]")
-                    .Select(codeNode => codeNode
-                        .SelectSingleNode("./td[2]")
-                        .InnerText
-                        .Trim());
-                var codes = string.Join(" ", codesEnum);
-                return codes;
+                var code = node
+                    .SelectSingleNode(".//div[@class='addingTbl col6Tbl']//tr[@class='tdHead']/following-sibling::tr/tr/tr/td[2]/text()")
+                    .InnerText
+                    .Trim();
+                return code;
             }
             catch (Exception)
             {

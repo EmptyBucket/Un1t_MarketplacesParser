@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace ParseZakupki
+namespace ParseZakupki.Client
 {
     public class Client : IClient
     {
@@ -21,15 +21,18 @@ namespace ParseZakupki
             return request;
         }
 
-        private HttpWebRequest CreateRequest(string url) => CreateRequest(new Uri(url));
+        public HttpWebRequest CreateRequest(string url) => CreateRequest(new Uri(url));
 
         public string GetResult(Uri url)
         {
             var request = CreateRequest(url);
             using (var response = request.GetResponse())
             using (var stream = response.GetResponseStream())
-            using (var streamReader = new StreamReader(stream))
-                return streamReader.ReadToEnd();
+                if (stream != null)
+                    using (var streamReader = new StreamReader(stream))
+                        return streamReader.ReadToEnd();
+                else
+                    return string.Empty;
         }
 
         public async Task<string> GetResultAsync(Uri url)
@@ -37,8 +40,11 @@ namespace ParseZakupki
             var request = CreateRequest(url);
             using (var response = await request.GetResponseAsync())
             using (var stream = response.GetResponseStream())
-            using (var streamReader = new StreamReader(stream))
-                return await streamReader.ReadToEndAsync();
+                if (stream != null)
+                    using (var streamReader = new StreamReader(stream))
+                        return await streamReader.ReadToEndAsync();
+                else
+                    return string.Empty;
         }
     }
 }

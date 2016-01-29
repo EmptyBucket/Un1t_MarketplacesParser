@@ -1,4 +1,6 @@
-﻿using ParseZakupki.Parser;
+﻿using ParseZakupki.Client;
+using ParseZakupki.Parser;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Module
 {
@@ -6,7 +8,7 @@ namespace ParseZakupki.Module
     {
         public override void Load()
         {
-            Bind<IClient>().To<Client>();
+            Bind<IClient>().To<Client.Client>();
             Bind<IMarketplaceParser>().To<MarketplaceParser>();
         }
     }

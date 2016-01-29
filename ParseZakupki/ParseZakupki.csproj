@@ -57,6 +57,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,6 +70,8 @@
     <Compile Include="Client\IClient.cs" />
     <Compile Include="Entity\PurchaseContext.cs" />
     <Compile Include="Entity\ParametersDb.cs" />
+    <Compile Include="LotUpload\ILotUploader.cs" />
+    <Compile Include="LotUpload\LotUploaderJs.cs" />
     <Compile Include="Migrations\201601241008233_InitialCreate.cs" />
     <Compile Include="Migrations\201601241008233_InitialCreate.Designer.cs">
       <DependentUpon>201601241008233_InitialCreate.cs</DependentUpon>
@@ -100,11 +103,24 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Module\CommonModule.cs" />
     <Compile Include="Module\OTCModule.cs" />
-    <Compile Include="Parameter\IParameters.cs" />
+    <Compile Include="Parameter\Common\IPageParameters.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberCodeParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberCostParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberCustomerParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberDateCreatedParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberDateFillingParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberDescriptionParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberIdParser.cs" />
+    <Compile Include="Parser\SberParser\SberLotSpliter.cs" />
+    <Compile Include="Module\SberModule.cs" />
+    <Compile Include="Parser\SberParser\SberNodeLotParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberSourceLinkParser.cs" />
+    <Compile Include="Parameter\SberParameter\SberParameters.cs" />
+    <Compile Include="Parameter\Common\IParameters.cs" />
     <Compile Include="Parameter\OTCParameter\OTCParameters.cs" />
     <Compile Include="Parameter\OTCParameter\OTCParametersType.cs" />
-    <Compile Include="Parser\ILotsSpliter.cs" />
-    <Compile Include="Parser\INodeLotParser.cs" />
+    <Compile Include="Parser\Common\ILotsSpliter.cs" />
+    <Compile Include="Parser\Common\INodeLotParser.cs" />
     <Compile Include="Parser\Common\MarketplaceParser.cs" />
     <Compile Include="Parser\OTCParser\NodeParser\OTCCodeParser.cs" />
     <Compile Include="Parser\OTCParser\NodeParser\OTCCostParser.cs" />
@@ -118,13 +134,13 @@
     <Compile Include="Parser\OTCParser\OTCMaxNumberPageParser.cs" />
     <Compile Include="Parser\OTCParser\OTCNodeLotParser.cs" />
     <Compile Include="Parser\ZakupkiParser\ZakupkiNodeLotParser.cs" />
-    <Compile Include="UrlBuilder\OTCUrlBuilder.cs" />
+    <Compile Include="UrlBuilder\OtcUrlBuilder.cs" />
     <Compile Include="Module\ZakupkiModule.cs" />
-    <Compile Include="Parameter\Parameter.cs" />
-    <Compile Include="Parameter\IParameterType.cs" />
+    <Compile Include="Parameter\Common\Parameter.cs" />
+    <Compile Include="Parameter\Common\IParameterType.cs" />
     <Compile Include="Parameter\ZakupkiParameter\ZakupkiParameters.cs" />
-    <Compile Include="Parser\IMarketplaceParser.cs" />
-    <Compile Include="Parser\IMaxNumberPageParser.cs" />
+    <Compile Include="Parser\Common\IMarketplaceParser.cs" />
+    <Compile Include="Parser\Common\IMaxNumberPageParser.cs" />
     <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiCodeParser.cs" />
     <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiCostParser.cs" />
     <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiDateCreatedParser.cs" />
@@ -134,7 +150,7 @@
     <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiSourceLinkParser.cs" />
     <Compile Include="Parser\ZakupkiParser\ZakupkiLotsSpliter.cs" />
     <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiIdParser.cs" />
-    <Compile Include="Parser\INodeParser.cs" />
+    <Compile Include="Parser\Common\INodeParser.cs" />
     <Compile Include="Parser\ZakupkiParser\ZakupkiMaxNumberPageParser.cs" />
     <Compile Include="Parser\Common\NodeLotParser.cs" />
     <Compile Include="Entity\PurchaseInformation.cs" />
@@ -142,8 +158,9 @@
     <Compile Include="Parameter\ZakupkiParameter\ZakupkiParameterType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UrlBuilder\SberUrlBuilder.cs" />
     <Compile Include="UrlBuilder\ZakupkiUrlBuilder.cs" />
-    <Compile Include="LotUploader.cs" />
+    <Compile Include="LotUpload\LotUploader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -172,7 +189,9 @@
       <DependentUpon>201601252032291_RemPropertyPurchaseInformation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HtmlAgilityPack;
 
-namespace ParseZakupki.Parser
+namespace ParseZakupki.Parser.Common
 {
     public interface ILotsSpliter
     {

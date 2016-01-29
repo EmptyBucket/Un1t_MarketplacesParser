@@ -1,6 +1,5 @@
 namespace ParseZakupki.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     
     public partial class MoreChange : DbMigration

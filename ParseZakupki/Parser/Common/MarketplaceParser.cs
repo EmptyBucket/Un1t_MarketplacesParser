@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
+using ParseZakupki.Entity;
 
-namespace ParseZakupki.Parser
+namespace ParseZakupki.Parser.Common
 {
     public class MarketplaceParser : IMarketplaceParser
     {
-        private readonly INodeLotParser mNodeLotParser;
-        private readonly ILotsSpliter mDocumentSpliter;
+        private readonly INodeLotParser _nodeLotParser;
+        private readonly ILotsSpliter _documentSpliter;
 
         public IReadOnlyCollection<PurchaseInformation> Parse(HtmlDocument docHtml)
         {
-            var result = mDocumentSpliter.DocumentSplit(docHtml)
-                .Select(node => mNodeLotParser.Parse(node))
+            var result = _documentSpliter.DocumentSplit(docHtml)
+                .Select(node => _nodeLotParser.Parse(node))
                 .ToArray();
             return result;
         }
 
         public MarketplaceParser(INodeLotParser contestNodeParser, ILotsSpliter documentSpliter)
         {
-            mNodeLotParser = contestNodeParser;
-            mDocumentSpliter = documentSpliter;
+            _nodeLotParser = contestNodeParser;
+            _documentSpliter = documentSpliter;
         }
     }
 }

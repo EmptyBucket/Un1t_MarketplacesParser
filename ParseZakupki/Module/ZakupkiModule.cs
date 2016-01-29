@@ -1,27 +1,35 @@
 ﻿using System;
 using ParseZakupki.Entity;
-using ParseZakupki.Module;
-using ParseZakupki.Parameter;
-using ParseZakupki.Parser;
+using ParseZakupki.LotUpload;
+using ParseZakupki.Parameter.Common;
+using ParseZakupki.Parameter.ZakupkiParameter;
+using ParseZakupki.Parser.Common;
 using ParseZakupki.Parser.ZakupkiParser;
 using ParseZakupki.Parser.ZakupkiParser.NodeParser;
+using ParseZakupki.UrlBuilder;
 
-namespace ParseZakupki
+namespace ParseZakupki.Module
 {
     public class ZakupkiModule : CommonModule
     {
-        private ParametersDb mParameters;
+        private readonly ParametersDb _parameters;
 
         public ZakupkiModule(ParametersDb parameters)
         {
-            mParameters = parameters;
+            _parameters = parameters;
         }
 
         public override void Load()
         {
             base.Load();
 
-            Bind<IParameters>().To<ZakupkiParameters>();
+            Bind<ILotUploader>().To<LotUploader>();
+            Bind<IPageParameters>().To<ZakupkiParameters>()
+                .WithPropertyValue("CostFrom", _parameters.CostFrom)
+                .WithPropertyValue("CostTo", _parameters.CostTo)
+                .WithPropertyValue("PublishDateFrom", DateTime.Now.AddDays(-1))
+                .WithPropertyValue("PublishDateFrom", _parameters.PublishDateFrom)
+                .WithPropertyValue("PublishDateTo", _parameters.PublishDateTo);
             Bind<IUrlBuilder>().To<ZakupkiUrlBuilder>();
             Bind<IMaxNumberPageParser>().To<ZakupkiMaxNumberPageParser>();
             Bind<IParameterType>().To<ZakupkiParameterType>();
@@ -36,14 +44,6 @@ namespace ParseZakupki
                 .WithConstructorArgument("dateFillingParser", new ZakupkiDateFillingParser())
                 .WithConstructorArgument("codeParser", new ZakupkiCodeParser())
                 .WithConstructorArgument("sourceLinkParser", new ZakupkiSourceLinkParser());
-            Bind<ZakupkiParameters>().ToSelf()
-                .WithPropertyValue("CostFrom", mParameters.CostFrom)
-                .WithPropertyValue("CostTo", mParameters.CostTo)
-                .WithPropertyValue("PublishDateFrom", mParameters.PublishDateFrom)
-                .WithPropertyValue("PublishDateTo", mParameters.PublishDateTo);
-
-                //.WithPropertyValue("PublishDateFrom", DateTime.Now.AddDays(-7))
-                //.WithPropertyValue("PublishDateTo", DateTime.Now);
         }
     }
 }

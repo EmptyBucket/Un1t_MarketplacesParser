@@ -1,8 +1,9 @@
 ﻿using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.OTCParser
 {
-    public class OTCMaxNumberPageParser : IMaxNumberPageParser
+    public class OtcMaxNumberPageParser : IMaxNumberPageParser
     {
         public int Parse(HtmlDocument htmlDoc)
         {

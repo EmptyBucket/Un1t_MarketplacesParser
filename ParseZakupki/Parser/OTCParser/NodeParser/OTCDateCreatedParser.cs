@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.OTCParser.NodeParser
 {
-    public class OTCDateCreatedParser : INodeParser
+    public class OtcDateCreatedParser : INodeParser
     {
         public string Parse(HtmlNode node)
         {

@@ -1,4 +1,6 @@
-﻿namespace ParseZakupki
+﻿using ParseZakupki.Parameter.Common;
+
+namespace ParseZakupki.Parameter.ZakupkiParameter
 {
     public struct ZakupkiParameterType : IParameterType
     {

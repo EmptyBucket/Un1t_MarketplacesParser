@@ -19,7 +19,7 @@ namespace ParseZakupki
         private static IReadOnlyCollection<PurchaseInformation> Upload(CommonModule module)
         {
             var kernel = new StandardKernel(module);
-            var uploader = kernel.Get<LotUploader>();
+            var uploader = kernel.Get<LotUpload.LotUploaderJs>();
             var result = uploader.Upload();
             return result;
         }
@@ -35,7 +35,7 @@ namespace ParseZakupki
 
         static void Main(string[] args)
         {
-            var module = new ZakupkiModule(LoadParameters());
+            var module = new SberModule(LoadParameters());
 
             var result = Upload(module);
             SaveDataToDb(result);

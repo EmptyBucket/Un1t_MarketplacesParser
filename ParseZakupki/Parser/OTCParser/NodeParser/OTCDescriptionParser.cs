@@ -1,9 +1,10 @@
 ﻿using System;
 using HtmlAgilityPack;
+using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.OTCParser.NodeParser
 {
-    public class OTCDescriptionParser : INodeParser
+    public class OtcDescriptionParser : INodeParser
     {
         public string Parse(HtmlNode node)
         {
@@ -15,7 +16,10 @@ namespace ParseZakupki.Parser.OTCParser.NodeParser
                     .Trim();
                 return desc;
             }
-            catch (Exception) { return "None" };
+            catch (Exception)
+            {
+                return "None";
+            }
         }
     }
 }
