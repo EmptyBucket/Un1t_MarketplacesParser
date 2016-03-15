@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MarketplaceDB.Marketplace>
+
+@{
+    ViewBag.Title = "Marketplace";
+    var currPage = Request.QueryString["page"] != null ? Convert.ToInt32(Request.QueryString["page"]) : 1;
+    var topRows = Request.QueryString["topRows"] != null ? Convert.ToInt32(Request.QueryString["topRows"]) : 30;
+    int pageCount = (ViewBag.TotalCount / topRows);
+}
+
+<table  class="table table-bordered table-striped table-hover">
+    <tr class="bg-primary">
+        <th>
+            <input id="id" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Id) value=@Request.QueryString["id"] />
+        </th>
+        <th>
+            <input id="customer" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Customer) value=@Request.QueryString["customer"]/>
+        </th>
+        <th>
+            <input id="dateCreated" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.DateCreated) value=@Request.QueryString["dateCreated"]/>
+        </th>
+        <th>
+            <input id="cost" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Cost) value=@Request.QueryString["cost"]/>
+        </th>
+        <th>
+            <input id="description" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Description) value=@Request.QueryString["description"]/>
+        </th>
+        <th>
+            <input id="siteId" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.SiteId) value=@Request.QueryString["siteId"]/>
+        </th>
+        <th>
+            <input id="dateFilling" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.DateFilling) value=@Request.QueryString["dateFilling"]/>
+        </th>
+        <th>
+            <input id="sourceLink" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.SourceLink) value=@Request.QueryString["sourceLink"]/>
+        </th>
+        <th>
+            <input id="code" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Code) value=@Request.QueryString["code"]/>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiteId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateFilling)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SourceLink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

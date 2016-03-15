@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D4D8FD23-1486-48A7-B810-65407B580A0F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ParseZakupki</RootNamespace>
+    <AssemblyName>ParseZakupki</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sprache, Version=2.0.0.50, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sprache.2.0.0.50\lib\portable-net4+netcore45+win8+wp8+sl5+MonoAndroid+Xamarin.iOS10+MonoTouch\Sprache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client\Client.cs" />
+    <Compile Include="Client\IClient.cs" />
+    <Compile Include="Entity\ParametersDb.cs" />
+    <Compile Include="Entity\PurchaseContext.cs" />
+    <Compile Include="LotUpload\ILotUploader.cs" />
+    <Compile Include="LotUpload\LotUploaderJs.cs" />
+    <Compile Include="Migrations\201601241008233_InitialCreate.cs" />
+    <Compile Include="Migrations\201601241008233_InitialCreate.Designer.cs">
+      <DependentUpon>201601241008233_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601241548416_AddClassParameters.cs" />
+    <Compile Include="Migrations\201601241548416_AddClassParameters.Designer.cs">
+      <DependentUpon>201601241548416_AddClassParameters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601241555179_RemovePageNumberFromParameters.cs" />
+    <Compile Include="Migrations\201601241555179_RemovePageNumberFromParameters.Designer.cs">
+      <DependentUpon>201601241555179_RemovePageNumberFromParameters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601251437244_ChangeDataStruct.cs" />
+    <Compile Include="Migrations\201601251437244_ChangeDataStruct.Designer.cs">
+      <DependentUpon>201601251437244_ChangeDataStruct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601252001417_MoreChange.cs" />
+    <Compile Include="Migrations\201601252001417_MoreChange.Designer.cs">
+      <DependentUpon>201601252001417_MoreChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601252008277_RemColumsParameters.cs" />
+    <Compile Include="Migrations\201601252008277_RemColumsParameters.Designer.cs">
+      <DependentUpon>201601252008277_RemColumsParameters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601252032291_RemPropertyPurchaseInformation.cs" />
+    <Compile Include="Migrations\201601252032291_RemPropertyPurchaseInformation.Designer.cs">
+      <DependentUpon>201601252032291_RemPropertyPurchaseInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Module\CommonModule.cs" />
+    <Compile Include="Module\OTCModule.cs" />
+    <Compile Include="Parameter\Common\IPageParameters.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberCodeParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberCostParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberCustomerParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberDateCreatedParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberDateFillingParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberDescriptionParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberIdParser.cs" />
+    <Compile Include="Parser\SberParser\SberLotSpliter.cs" />
+    <Compile Include="Module\SberModule.cs" />
+    <Compile Include="Parser\SberParser\SberNodeLotParser.cs" />
+    <Compile Include="Parser\SberParser\NodeParser\SberSourceLinkParser.cs" />
+    <Compile Include="Parameter\SberParameter\SberParameters.cs" />
+    <Compile Include="Parameter\Common\IParameters.cs" />
+    <Compile Include="Parameter\OTCParameter\OTCParameters.cs" />
+    <Compile Include="Parameter\OTCParameter\OTCParametersType.cs" />
+    <Compile Include="Parser\Common\ILotsSpliter.cs" />
+    <Compile Include="Parser\Common\INodeLotParser.cs" />
+    <Compile Include="Parser\Common\MarketplaceParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCCodeParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCCostParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCCustomerParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCDateCreatedParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCDateFillingParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCDescriptionParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCIdParser.cs" />
+    <Compile Include="Parser\OTCParser\NodeParser\OTCSourceLinkParser.cs" />
+    <Compile Include="Parser\OTCParser\OTCLotsSpliter.cs" />
+    <Compile Include="Parser\OTCParser\OTCMaxNumberPageParser.cs" />
+    <Compile Include="Parser\OTCParser\OTCNodeLotParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\ZakupkiNodeLotParser.cs" />
+    <Compile Include="UrlBuilder\OtcUrlBuilder.cs" />
+    <Compile Include="Module\ZakupkiModule.cs" />
+    <Compile Include="Parameter\Common\Parameter.cs" />
+    <Compile Include="Parameter\Common\IParameterType.cs" />
+    <Compile Include="Parameter\ZakupkiParameter\ZakupkiParameters.cs" />
+    <Compile Include="Parser\Common\IMarketplaceParser.cs" />
+    <Compile Include="Parser\Common\IMaxNumberPageParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiCodeParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiCostParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiDateCreatedParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiCustomerParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiDateFillingParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiDescriptionParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiSourceLinkParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\ZakupkiLotsSpliter.cs" />
+    <Compile Include="Parser\ZakupkiParser\NodeParser\ZakupkiIdParser.cs" />
+    <Compile Include="Parser\Common\INodeParser.cs" />
+    <Compile Include="Parser\ZakupkiParser\ZakupkiMaxNumberPageParser.cs" />
+    <Compile Include="Parser\Common\NodeLotParser.cs" />
+    <Compile Include="UrlBuilder\IUrlBuilder.cs" />
+    <Compile Include="Parameter\ZakupkiParameter\ZakupkiParameterType.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UrlBuilder\SberUrlBuilder.cs" />
+    <Compile Include="UrlBuilder\ZakupkiUrlBuilder.cs" />
+    <Compile Include="LotUpload\LotUploader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601241008233_InitialCreate.resx">
+      <DependentUpon>201601241008233_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601241548416_AddClassParameters.resx">
+      <DependentUpon>201601241548416_AddClassParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601241555179_RemovePageNumberFromParameters.resx">
+      <DependentUpon>201601241555179_RemovePageNumberFromParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601251437244_ChangeDataStruct.resx">
+      <DependentUpon>201601251437244_ChangeDataStruct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601252001417_MoreChange.resx">
+      <DependentUpon>201601252001417_MoreChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601252008277_RemColumsParameters.resx">
+      <DependentUpon>201601252008277_RemColumsParameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601252032291_RemPropertyPurchaseInformation.resx">
+      <DependentUpon>201601252032291_RemPropertyPurchaseInformation.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MarketplaceDB\MarketplaceDB.csproj">
+      <Project>{6f7c6c79-ab23-4244-8487-d572e4bafd25}</Project>
+      <Name>MarketplaceDB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
