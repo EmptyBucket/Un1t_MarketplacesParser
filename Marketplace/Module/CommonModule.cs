@@ -1,5 +1,4 @@
 ﻿using ParseZakupki.Client;
-using ParseZakupki.Parser;
 using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Module

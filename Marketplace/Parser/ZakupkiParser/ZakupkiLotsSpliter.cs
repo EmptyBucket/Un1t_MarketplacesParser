@@ -6,7 +6,7 @@ using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.ZakupkiParser
 {
-    public class ZakupkiLotsSpliter : ILotsSpliter
+    public class ZakupkiLotSpliter : ILotSpliter
     {
         public IReadOnlyCollection<HtmlNode> DocumentSplit(HtmlDocument doc)
         {
@@ -15,6 +15,7 @@ namespace ParseZakupki.Parser.ZakupkiParser
                 return doc
                 .DocumentNode
                 .SelectNodes(".//div[@class='registerBox registerBoxBank margBtm20']")
+                .Take(10)
                 .ToArray();
             }
             catch (Exception)

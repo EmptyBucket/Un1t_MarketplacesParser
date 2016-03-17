@@ -5,7 +5,7 @@ using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.SberParser
 {
-    public class SberLotSpliter : ILotsSpliter
+    public class SberLotpliter : ILotSpliter
     {
         public IReadOnlyCollection<HtmlNode> DocumentSplit(HtmlDocument doc)
         {

@@ -13,7 +13,7 @@ namespace ParseZakupki.Parser.OTCParser.NodeParser
             try
             {
                 codeOkved = node
-                    .SelectSingleNode(".//span[@id='BaseMainContent_MainContent_ucTradeLotViewList_rptLots_ucTradeLotView_0_fvOkved2_0_lblValue_0']/text()")
+                    .SelectSingleNode(".//span[@id='BaseMainContent_MainContent_ucTradeLotViewList_rptLot_ucTradeLotView_0_fvOkved2_0_lblValue_0']/text()")
                     .InnerText
                     .Trim()
                     .Split(' ')
@@ -27,7 +27,7 @@ namespace ParseZakupki.Parser.OTCParser.NodeParser
             try
             {
                 codeOkpd = node
-                .SelectSingleNode(".//span[@id='BaseMainContent_MainContent_ucTradeLotViewList_rptLots_ucTradeLotView_0_fvOkpd2_0_lblValue_0']/text()")
+                .SelectSingleNode(".//span[@id='BaseMainContent_MainContent_ucTradeLotViewList_rptLot_ucTradeLotView_0_fvOkpd2_0_lblValue_0']/text()")
                 .InnerText
                 .Trim()
                 .Split(' ')

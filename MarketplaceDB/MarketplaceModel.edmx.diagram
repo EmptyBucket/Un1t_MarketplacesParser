@@ -4,8 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b7e9f4b0bb85496f9647f6c07f25df2d" Name="Diagram1">
-        <EntityTypeShape EntityType="MarketplaceDBModel.Marketplace" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="ea17b540344041e8995861d1a8862778" Name="Diagram1">
+        <EntityTypeShape EntityType="MarketplacesModel.InformationOnMarketplace" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplacesModel.Lot" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplacesModel.Marketplace1" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketplacesModel.ParseParameter" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="MarketplacesModel.FK_Marketplace_InformationOnMarketplace" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketplacesModel.FK_Marketplace_Lot" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

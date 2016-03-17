@@ -3,9 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
-using MarketplaceDB;
+using MarketplaceLocalDB;
 using ParseZakupki.Client;
-using ParseZakupki.Entity;
 using ParseZakupki.Parameter.Common;
 using ParseZakupki.Parser.Common;
 using ParseZakupki.UrlBuilder;
@@ -14,15 +13,42 @@ namespace ParseZakupki.LotUpload
 {
     public class LotUploader : ILotUploader
     {
-        private readonly IPageParameters _parameters;
-        private readonly IUrlBuilder _urlBuilder;
         private readonly IClient _client;
         private readonly IMarketplaceParser _marketPlaceParser;
         private readonly IMaxNumberPageParser _maxNumberPageParser;
+        private readonly IPageParameter _parameter;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public IReadOnlyCollection<Marketplace> FirstUpload(out int maxNumberPage)
+        public LotUploader(IPageParameter parameter, IUrlBuilder urlBuilder, IClient client,
+            IMarketplaceParser marketPlaceParser, IMaxNumberPageParser maxNumberPageParser)
         {
-            var url = new Uri(_urlBuilder.Build(_parameters));
+            _parameter = parameter;
+            _urlBuilder = urlBuilder;
+            _client = client;
+            _marketPlaceParser = marketPlaceParser;
+            _maxNumberPageParser = maxNumberPageParser;
+        }
+
+        public IReadOnlyCollection<Lot> Upload()
+        {
+            int maxNumberPage;
+            var listPurchase = new List<Lot>(FirstUpload(out maxNumberPage));
+            for (var i = 2; i <= maxNumberPage; i++)
+            {
+                _parameter.PageNumber = i;
+                var tmpUrl = new Uri(_urlBuilder.Build(_parameter));
+                var tmpDocTxt = _client.GetResult(tmpUrl);
+                var docHtml = new HtmlDocument();
+                docHtml.LoadHtml(tmpDocTxt);
+                var tmpParsedResult = _marketPlaceParser.Parse(docHtml);
+                listPurchase.AddRange(tmpParsedResult);
+            }
+            return listPurchase.ToArray();
+        }
+
+        public IReadOnlyCollection<Lot> FirstUpload(out int maxNumberPage)
+        {
+            var url = new Uri(_urlBuilder.Build(_parameter));
             var docTxt = _client.GetResult(url);
             var docHtml = new HtmlDocument();
             docHtml.LoadHtml(docTxt);
@@ -38,32 +64,15 @@ namespace ParseZakupki.LotUpload
             return parsedResult;
         }
 
-        public IReadOnlyCollection<Marketplace> Upload()
+        public async Task<IReadOnlyCollection<Lot>> UploadAsync()
         {
             int maxNumberPage;
-            var listPurchase = new List<Marketplace>(FirstUpload(out maxNumberPage));
-            for (var i = 2; i <= maxNumberPage; i++)
-            {
-                _parameters.PageNumber = i;
-                var tmpUrl = new Uri(_urlBuilder.Build(_parameters));
-                var tmpDocTxt = _client.GetResult(tmpUrl);
-                var docHtml = new HtmlDocument();
-                docHtml.LoadHtml(tmpDocTxt);
-                var tmpParsedResult = _marketPlaceParser.Parse(docHtml);
-                listPurchase.AddRange(tmpParsedResult);
-            }
-            return listPurchase.ToArray();
-        }
-
-        public async Task<IReadOnlyCollection<Marketplace>> UploadAsync()
-        {
-            int maxNumberPage;
-            var listPurchase = new List<Marketplace>(FirstUpload(out maxNumberPage));
+            var listPurchase = new List<Lot>(FirstUpload(out maxNumberPage));
             var listTask = new List<Task<string>>();
             for (var i = 2; i <= maxNumberPage; i++)
             {
-                _parameters.PageNumber = i;
-                var tmpUrl = new Uri(_urlBuilder.Build(_parameters));
+                _parameter.PageNumber = i;
+                var tmpUrl = new Uri(_urlBuilder.Build(_parameter));
                 listTask.Add(_client.GetResultAsync(tmpUrl));
             }
             var exceptions = new ConcurrentQueue<Exception>();
@@ -84,14 +93,14 @@ namespace ParseZakupki.LotUpload
             return listPurchase;
         }
 
-        public IReadOnlyCollection<Marketplace> UploadParallel()
+        public IReadOnlyCollection<Lot> UploadParallel()
         {
             int maxNumberPage;
-            var listPurchase = new List<Marketplace>(FirstUpload(out maxNumberPage));
+            var listPurchase = new List<Lot>(FirstUpload(out maxNumberPage));
             Parallel.For(2, maxNumberPage + 1, i =>
             {
-                _parameters.PageNumber = i;
-                var tmpUrl = new Uri(_urlBuilder.Build(_parameters));
+                _parameter.PageNumber = i;
+                var tmpUrl = new Uri(_urlBuilder.Build(_parameter));
                 var tmpDocTxt = _client.GetResult(tmpUrl);
                 var tmpDocHtml = new HtmlDocument();
                 tmpDocHtml.Load(tmpDocTxt);
@@ -99,15 +108,6 @@ namespace ParseZakupki.LotUpload
                 listPurchase.AddRange(tmpParsedResult);
             });
             return listPurchase;
-        }
-
-        public LotUploader(IPageParameters parameters, IUrlBuilder urlBuilder, IClient client, IMarketplaceParser marketPlaceParser, IMaxNumberPageParser maxNumberPageParser)
-        {
-            _parameters = parameters;
-            _urlBuilder = urlBuilder;
-            _client = client;
-            _marketPlaceParser = marketPlaceParser;
-            _maxNumberPageParser = maxNumberPageParser;
         }
     }
 }

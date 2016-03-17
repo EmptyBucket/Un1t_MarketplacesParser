@@ -3,10 +3,10 @@ using ParseZakupki.Parameter.Common;
 
 namespace ParseZakupki.Parameter.SberParameter
 {
-    public class SberParameters : IParameters
+    public class SberParameter : IParameter
     {
-        public long CostFrom { get; set; }
-        public long CostTo { get; set; }
+        public double CostFrom { get; set; }
+        public double CostTo { get; set; }
         public DateTime PublishDateFrom { get; set; }
         public DateTime PublishDateTo { get; set; }
     }

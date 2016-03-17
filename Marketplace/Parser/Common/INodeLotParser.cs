@@ -1,11 +1,10 @@
 ﻿using HtmlAgilityPack;
-using MarketplaceDB;
-using ParseZakupki.Entity;
+using MarketplaceLocalDB;
 
 namespace ParseZakupki.Parser.Common
 {
     public interface INodeLotParser
     {
-        Marketplace Parse(HtmlNode node);
+        Lot Parse(HtmlNode node);
     }
 }

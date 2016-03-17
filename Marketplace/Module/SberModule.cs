@@ -1,5 +1,5 @@
 ﻿using System;
-using ParseZakupki.Entity;
+using MarketplaceLocalDB;
 using ParseZakupki.LotUpload;
 using ParseZakupki.Parameter.Common;
 using ParseZakupki.Parameter.SberParameter;
@@ -12,19 +12,19 @@ namespace ParseZakupki.Module
 {
     public class SberModule : CommonModule
     {
-        private readonly ParametersDb _parameters;
+        private readonly ParseParameter _parameter;
 
         public override void Load()
         {
             base.Load();
             Bind<ILotUploader>().To<LotUploaderJs>();
-            Bind<IParameters>().To<SberParameters>()
-                .WithConstructorArgument("CostFrom", _parameters.CostFrom)
-                .WithConstructorArgument("CostTo", _parameters.CostTo)
-                .WithConstructorArgument("PublishDateFrom", _parameters.PublishDateFrom)
-                .WithConstructorArgument("PublishDateTo", _parameters.PublishDateTo);
+            Bind<IParameter>().To<SberParameter>()
+                .WithConstructorArgument("CostFrom", _parameter.CostFrom)
+                .WithConstructorArgument("CostTo", _parameter.CostTo)
+                .WithConstructorArgument("PublishDateFrom", _parameter.PublishDateFrom)
+                .WithConstructorArgument("PublishDateTo", _parameter.PublishDateTo);
             Bind<IUrlBuilder>().To<SberUrlBuilder>();
-            Bind<ILotsSpliter>().To<SberLotSpliter>();
+            Bind<ILotSpliter>().To<SberLotpliter>();
             Bind<INodeLotParser>().To<SberNodeLotParser>()
                 .WithConstructorArgument("domain", new Uri("http://sberbank-ast.ru"))
                 .WithConstructorArgument("dateCreatedParser", new SberDateCreatedParser())
@@ -37,9 +37,9 @@ namespace ParseZakupki.Module
                 .WithConstructorArgument("sourceLinkParser", new SberSourceLinkParser());
         }
 
-        public SberModule(ParametersDb parameters)
+        public SberModule(ParseParameter parameter)
         {
-            _parameters = parameters;
+            _parameter = parameter;
         }
     }
 }

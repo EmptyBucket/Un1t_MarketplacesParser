@@ -1,74 +1,193 @@
-﻿@model IEnumerable<MarketplaceDB.Marketplace>
-
+﻿@model IEnumerable<MarketplaceLocalDB.Lot>
 @{
     ViewBag.Title = "Marketplace";
     var currPage = Request.QueryString["page"] != null ? Convert.ToInt32(Request.QueryString["page"]) : 1;
-    var topRows = Request.QueryString["topRows"] != null ? Convert.ToInt32(Request.QueryString["topRows"]) : 30;
-    int pageCount = (ViewBag.TotalCount / topRows);
+    var countRows = Request.QueryString["countRows"] != null ? Convert.ToInt32(Request.QueryString["countRows"]) : 30;
+    int pageCount = ViewBag.TotalCount/countRows;
+    if (ViewBag.TotalCount%countRows > 0)
+    {
+        pageCount++;
+    }
 }
+<div class="row">
+    <h3 class="nopadding">Результаты поиска по торговым площадкам</h3>
+    <div class="col-lg-5 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+        <div class="pull-left">
+            <nav>
+                <ul class="pagination">
+                    <li name="page" class="@(currPage <= 1 ? "disabled" : string.Empty)">
+                        <a href="@Url.Current(new {page = Convert.ToInt32(Request.QueryString["page"]) - 1})"><</a>
+                    </li>
+                    @for (var i = 1; i <= pageCount; i++)
+                    {
+                        if (i > 4)
+                        {
+                            <li name="page" class="@(i == currPage ? "active" : string.Empty)">
+                                <a href="@Url.Current(new {page = i})">...</a>
+                            </li>
+                            break;
+                        }
+                        <li name="page" class="@(i == currPage ? "active" : string.Empty)">
+                            <a href="@Url.Current(new {page = i})">@i</a>
+                        </li>
+                    }
 
-<table  class="table table-bordered table-striped table-hover">
-    <tr class="bg-primary">
-        <th>
-            <input id="id" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Id) value=@Request.QueryString["id"] />
-        </th>
-        <th>
-            <input id="customer" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Customer) value=@Request.QueryString["customer"]/>
-        </th>
-        <th>
-            <input id="dateCreated" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.DateCreated) value=@Request.QueryString["dateCreated"]/>
-        </th>
-        <th>
-            <input id="cost" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Cost) value=@Request.QueryString["cost"]/>
-        </th>
-        <th>
-            <input id="description" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Description) value=@Request.QueryString["description"]/>
-        </th>
-        <th>
-            <input id="siteId" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.SiteId) value=@Request.QueryString["siteId"]/>
-        </th>
-        <th>
-            <input id="dateFilling" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.DateFilling) value=@Request.QueryString["dateFilling"]/>
-        </th>
-        <th>
-            <input id="sourceLink" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.SourceLink) value=@Request.QueryString["sourceLink"]/>
-        </th>
-        <th>
-            <input id="code" class="form-control input-xs" placeholder=@Html.DisplayNameFor(model => model.Code) value=@Request.QueryString["code"]/>
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
+                    <li name="page" class="@(currPage == pageCount ? "disabled" : string.Empty)">
+                        <a href="@Url.Current(new {page = Convert.ToInt32(Request.QueryString["page"]) + 1})">></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="col-lg-2 col-sm-6 col-xs-6 pull-right">
+        <div class="text-right">
+            <nav>
+                <ul class="pagination">
+                    <li class="@(Convert.ToInt32(Request.QueryString["countRows"]) == 30 || Request.QueryString["countRows"] == null ? "active" : string.Empty)">
+                        <a name="pageSize" value="30" href="@Url.Current(new {countRows = 30, page = 1})">30</a>
+                    </li>
+                    <li class="@(Convert.ToInt32(Request.QueryString["countRows"]) == 100 ? "active" : string.Empty)">
+                        <a value="100" href="@Url.Current(new {countRows = 100, page = 1})">100</a>
+                    </li>
+                    <li class="@(Convert.ToInt32(Request.QueryString["countRows"]) == 300 ? "active" : string.Empty)">
+                        <a value="300" href="@Url.Current(new {countRows = 300, page = 1})">300</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<table id="marketplaceForm" class="table table-bordered table-striped table-hover">
+    <thead class="bg-primary">
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SiteId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateFilling)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SourceLink)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Id })
-        </td>
+        <th class="min-width">
+            <input id="id" class="form-control input-xxs" placeholder="@Html.DisplayNameFor(model => model.Id)" value=@Request.QueryString["id"]></input>
+        </th>
+        <th>
+            <input id="site" class="form-control input-xxs" placeholder="Сайт" value=@Request.QueryString["site"]></input>
+        </th>
+        <th>
+            <div>
+                <input id="customer" class="form-control input-xxs" placeholder="Поставщик" value=@Request.QueryString["customer"]></input>    
+            </div>
+            
+        </th>
+        <th>
+            <input id="dateCreated" class="form-control input-xxs date" placeholder="Дата создания" value=@Request.QueryString["dateCreated"]></input>
+        </th>
+        <th>
+            <input id="cost" class="form-control input-xxs" placeholder="Стоимость" value=@Request.QueryString["cost"]></input>
+        </th>
+        <th>
+            <input id="description" class="form-control input-xxs" placeholder="Описание" value=@Request.QueryString["description"]></input>
+        </th>
+        <th>
+            <input id="dateStart" class="form-control input-xxs date" placeholder="Дата начала" value=@Request.QueryString["dateStart"]></input>
+        </th>
+        <th>
+            <input id="dateEnd" class="form-control input-xxs date" placeholder="Дата конца" value=@Request.QueryString["dateEnd"]></input>
+        </th>
+        <th>
+            <input id="code" class="form-control input-xxs" placeholder="Код" value=@Request.QueryString["code"]></input>
+        </th>
     </tr>
-}
-
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(moelItem => item.Marketplace1.First().InformationOnMarketplace.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                <div>
+                    <a href="@Html.DisplayFor(modelItem => item.SourceLink)" target="_blank">Ссылка</a>
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+        </tr>
+    }
+    </tbody>
 </table>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $('#marketplaceForm thead tr input').keypress(function(e) {
+                if (e.keyCode !== 13) return;
+                search();
+            });
+        });
+
+        $(document).ready(function () {
+            $(".date").datepicker({
+                format: "dd.mm.yyyy",
+                autoclose: true,
+                language: "ru",
+                orientation: "auto"});
+        });
+
+        function search() {
+            var curUrl = location.href;
+            var url = curUrl;
+            var id = $('#id').val();
+            url = updateQueryStringParameter(url, 'id', id);
+            var site = $('#site').val();
+            url = updateQueryStringParameter(url, 'site', site);
+            var customer = $('#customer').val();
+            url = updateQueryStringParameter(url, 'customer', customer);
+            var dateCreated = $('#dateCreated').val();
+            url = updateQueryStringParameter(url, 'dateCreated', dateCreated);
+            var cost = $('#cost').val();
+            url = updateQueryStringParameter(url, 'cost', cost);
+            var siteId = $('#siteId').val();
+            url = updateQueryStringParameter(url, 'siteId', siteId);
+            var description = $('#description').val();
+            url = updateQueryStringParameter(url, 'description', description);
+            var dateStart = $('#dateStart').val();
+            url = updateQueryStringParameter(url, 'dateStart', dateStart);
+            var dateEnd = $('#dateEnd').val();
+            url = updateQueryStringParameter(url, 'dateEnd', dateEnd);
+            var code = $('#code').val();
+            url = updateQueryStringParameter(url, 'code', code);
+
+            url = updateQueryStringParameter(url, 'page', 1);
+
+            window.location = url;
+        }
+
+        function updateQueryStringParameter(uri, key, value) {
+            var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+            if (uri.match(re)) {
+                return uri.replace(re, '$1' + key + "=" + value + '$2');
+            } else {
+                return uri + separator + key + "=" + value;
+            }
+        }
+    </script>
+}

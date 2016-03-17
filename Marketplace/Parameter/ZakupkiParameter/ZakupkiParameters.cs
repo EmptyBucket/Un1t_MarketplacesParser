@@ -6,11 +6,11 @@ using ParseZakupki.Parameter.Common;
 
 namespace ParseZakupki.Parameter.ZakupkiParameter
 {
-    public class ZakupkiParameters : IReadOnlyDictionary<IParameterType, Common.Parameter>, IPageParameters
+    public class ZakupkiParameter : IReadOnlyDictionary<IParameterType, Common.Parameter>, IPageParameter
     {
         public const int MaxRecordsPerPage = 500;
 
-        private readonly Dictionary<IParameterType, Common.Parameter> _parameters = new Dictionary<IParameterType, Common.Parameter>();
+        private readonly Dictionary<IParameterType, Common.Parameter> _parameter = new Dictionary<IParameterType, Common.Parameter>();
 
         private int _pageNumber;
         public int PageNumber
@@ -22,7 +22,7 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _pageNumber = value;
-                _parameters[ZakupkiParameterType.PageNumber] = new Common.Parameter(ZakupkiParameterType.PageNumber, value.ToString());
+                _parameter[ZakupkiParameterType.PageNumber] = new Common.Parameter(ZakupkiParameterType.PageNumber, value.ToString());
             }
         }
         private int _recordsPerPage;
@@ -35,11 +35,11 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _recordsPerPage = value;
-                _parameters[ZakupkiParameterType.RecordsPerPage] = new Common.Parameter(ZakupkiParameterType.RecordsPerPage, '_' + value.ToString());
+                _parameter[ZakupkiParameterType.RecordsPerPage] = new Common.Parameter(ZakupkiParameterType.RecordsPerPage, '_' + value.ToString());
             }
         }
-        private long _costFrom;
-        public long CostFrom
+        private double _costFrom;
+        public double CostFrom
         {
             get
             {
@@ -48,11 +48,11 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _costFrom = value;
-                _parameters[ZakupkiParameterType.PriceFrom] = new Common.Parameter(ZakupkiParameterType.PriceFrom, value.ToString());
+                _parameter[ZakupkiParameterType.PriceFrom] = new Common.Parameter(ZakupkiParameterType.PriceFrom, value.ToString());
             }
         }
-        private long _costTo;
-        public long CostTo
+        private double _costTo;
+        public double CostTo
         {
             get
             {
@@ -61,7 +61,7 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _costTo = value;
-                _parameters[ZakupkiParameterType.PriceTo] = new Common.Parameter(ZakupkiParameterType.PriceTo, value.ToString());
+                _parameter[ZakupkiParameterType.PriceTo] = new Common.Parameter(ZakupkiParameterType.PriceTo, value.ToString());
             }
         }
         private DateTime _publishDateFrom;
@@ -74,7 +74,7 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _publishDateFrom = value;
-                _parameters[ZakupkiParameterType.PublishDateFrom] = new Common.Parameter(ZakupkiParameterType.PublishDateFrom, value.ToString("d"));
+                _parameter[ZakupkiParameterType.PublishDateFrom] = new Common.Parameter(ZakupkiParameterType.PublishDateFrom, value.ToString("d"));
             }
         }
         private DateTime _publishDateTo;
@@ -87,7 +87,7 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _publishDateTo = value;
-                _parameters[ZakupkiParameterType.PublishDateTo] = new Common.Parameter(ZakupkiParameterType.PublishDateTo, value.ToString("d"));
+                _parameter[ZakupkiParameterType.PublishDateTo] = new Common.Parameter(ZakupkiParameterType.PublishDateTo, value.ToString("d"));
             }
         }
         private bool _fz44;
@@ -100,7 +100,7 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _fz44 = value;
-                _parameters[ZakupkiParameterType.Fz44] = new Common.Parameter(ZakupkiParameterType.Fz44, value ? "on" : null);
+                _parameter[ZakupkiParameterType.Fz44] = new Common.Parameter(ZakupkiParameterType.Fz44, value ? "on" : null);
             }
         }
         private bool _fz223;
@@ -113,7 +113,7 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _fz223 = value;
-                _parameters[ZakupkiParameterType.Fz223] = new Common.Parameter(ZakupkiParameterType.Fz223, value ? "on" : null);
+                _parameter[ZakupkiParameterType.Fz223] = new Common.Parameter(ZakupkiParameterType.Fz223, value ? "on" : null);
             }
         }
         private bool _fz94;
@@ -126,32 +126,32 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             set
             {
                 _fz94 = value;
-                _parameters[ZakupkiParameterType.Fz94] = new Common.Parameter(ZakupkiParameterType.Fz94, value ? "on" : null);
+                _parameter[ZakupkiParameterType.Fz94] = new Common.Parameter(ZakupkiParameterType.Fz94, value ? "on" : null);
             }
         }
 
-        public IEnumerable<IParameterType> Keys => _parameters.Keys;
+        public IEnumerable<IParameterType> Keys => _parameter.Keys;
 
-        public IEnumerable<Common.Parameter> Values => _parameters.Values;
+        public IEnumerable<Common.Parameter> Values => _parameter.Values;
 
-        public int Count => _parameters.Count;
+        public int Count => _parameter.Count;
 
         public Common.Parameter this[IParameterType key]
         {
             get
             {
-                return _parameters[key];
+                return _parameter[key];
             }
             private set
             {
                 if (value != null)
-                    _parameters[key] = value;
+                    _parameter[key] = value;
                 else
-                    _parameters.Remove(key);
+                    _parameter.Remove(key);
             }
         }
 
-        public ZakupkiParameters()
+        public ZakupkiParameter()
         {
             PageNumber = 1;
             RecordsPerPage = MaxRecordsPerPage;
@@ -164,15 +164,15 @@ namespace ParseZakupki.Parameter.ZakupkiParameter
             Fz94 = false;
         }
 
-        public override string ToString() => string.Join(string.Empty, _parameters.Select(parameter => parameter.Value.ToString()));
+        public override string ToString() => string.Join(string.Empty, _parameter.Select(parameter => parameter.Value.ToString()));
 
-        public bool ContainsKey(IParameterType key) => _parameters.ContainsKey(key);
+        public bool ContainsKey(IParameterType key) => _parameter.ContainsKey(key);
 
-        public bool TryGetValue(IParameterType key, out Common.Parameter value) => _parameters.TryGetValue(key, out value);
+        public bool TryGetValue(IParameterType key, out Common.Parameter value) => _parameter.TryGetValue(key, out value);
 
-        public IEnumerator<KeyValuePair<IParameterType, Common.Parameter>> GetEnumerator() => _parameters.GetEnumerator();
+        public IEnumerator<KeyValuePair<IParameterType, Common.Parameter>> GetEnumerator() => _parameter.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => _parameters.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => _parameter.GetEnumerator();
 
         public object Clone() => MemberwiseClone();
     }

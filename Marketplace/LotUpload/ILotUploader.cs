@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using MarketplaceDB;
-using ParseZakupki.Entity;
+using MarketplaceLocalDB;
 
 namespace ParseZakupki.LotUpload
 {
     public interface ILotUploader
     {
-        IReadOnlyCollection<Marketplace> Upload();
+        IReadOnlyCollection<Lot> Upload();
     }
 }

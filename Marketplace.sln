@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceParser", "Market
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceForm", "MarketplaceForm\MarketplaceForm.csproj", "{6845EA1B-0A0D-4189-A0CF-26FB538FA5CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceDB", "MarketplaceDB\MarketplaceDB.csproj", "{6F7C6C79-AB23-4244-8487-D572E4BAFD25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceLocalDB", "MarketplaceDB\MarketplaceLocalDB.csproj", "{6F7C6C79-AB23-4244-8487-D572E4BAFD25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

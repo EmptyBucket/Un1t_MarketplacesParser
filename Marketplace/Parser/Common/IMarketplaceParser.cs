@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using HtmlAgilityPack;
-using MarketplaceDB;
-using ParseZakupki.Entity;
+using MarketplaceLocalDB;
 
 namespace ParseZakupki.Parser.Common
 {
     public interface IMarketplaceParser
     {
-        IReadOnlyCollection<Marketplace> Parse(HtmlDocument txtDoc);
+        IReadOnlyCollection<Lot> Parse(HtmlDocument txtDoc);
     }
 }

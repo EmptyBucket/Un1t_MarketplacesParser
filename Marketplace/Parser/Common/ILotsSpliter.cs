@@ -3,7 +3,7 @@ using HtmlAgilityPack;
 
 namespace ParseZakupki.Parser.Common
 {
-    public interface ILotsSpliter
+    public interface ILotSpliter
     {
         IReadOnlyCollection<HtmlNode> DocumentSplit(HtmlDocument doc);
     }

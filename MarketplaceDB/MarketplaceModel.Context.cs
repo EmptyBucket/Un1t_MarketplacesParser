@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MarketplaceDB
+namespace MarketplaceLocalDB
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MarketplaceDBEntities : DbContext
+    public partial class MarketplacesEntities : DbContext
     {
-        public MarketplaceDBEntities()
-            : base("name=MarketplaceDBEntities")
+        public MarketplacesEntities()
+            : base("name=MarketplacesEntities")
         {
         }
     
@@ -25,6 +25,9 @@ namespace MarketplaceDB
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Marketplace> Marketplace { get; set; }
+        public virtual DbSet<InformationOnMarketplace> InformationOnMarketplace { get; set; }
+        public virtual DbSet<Lot> Lot { get; set; }
+        public virtual DbSet<Marketplace1> Marketplace1 { get; set; }
+        public virtual DbSet<ParseParameter> ParseParameter { get; set; }
     }
 }

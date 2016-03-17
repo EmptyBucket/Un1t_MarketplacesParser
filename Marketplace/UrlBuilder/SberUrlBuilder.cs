@@ -4,6 +4,6 @@ namespace ParseZakupki.UrlBuilder
 {
     public class SberUrlBuilder : IUrlBuilder
     {
-        public string Build(IParameters parameters) => "http://sberbank-ast.ru/purchaseList.aspx";
+        public string Build(IParameter parameter) => "http://sberbank-ast.ru/purchaseList.aspx";
     }
 }

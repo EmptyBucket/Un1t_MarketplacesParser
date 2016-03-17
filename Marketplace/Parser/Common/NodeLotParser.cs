@@ -1,7 +1,6 @@
 ﻿using System;
 using HtmlAgilityPack;
-using MarketplaceDB;
-using ParseZakupki.Entity;
+using MarketplaceLocalDB;
 
 namespace ParseZakupki.Parser.Common
 {
@@ -17,7 +16,7 @@ namespace ParseZakupki.Parser.Common
         protected readonly INodeParser SourceLinkParser;
         protected readonly INodeParser CodeParser;
 
-        public abstract Marketplace Parse(HtmlNode node);
+        public abstract Lot Parse(HtmlNode node);
 
         protected NodeLotParser(Uri domain, INodeParser dateCreatedParser, INodeParser costParser, INodeParser customerParser, INodeParser descParser, INodeParser idParser, INodeParser dateFillingParser, INodeParser codeParser, INodeParser sourceLinkParser)
         {

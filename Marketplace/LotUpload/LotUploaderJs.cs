@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using MarketplaceDB;
-using ParseZakupki.Entity;
+using MarketplaceLocalDB;
 using ParseZakupki.Parameter.Common;
 using ParseZakupki.Parser.Common;
 using ParseZakupki.UrlBuilder;
@@ -14,9 +13,9 @@ namespace ParseZakupki.LotUpload
     public class LotUploaderJs : ILotUploader
     {
         private readonly IMarketplaceParser _marketPlaceParser;
-        private readonly IParameters _parameters;
+        private readonly IParameter _parameter;
         private readonly IUrlBuilder _urlBuilder;
-        private readonly List<Marketplace> _purchaseInfo = new List<Marketplace>();
+        private readonly List<Lot> _purchaseInfo = new List<Lot>();
         private WebBrowser _webBrowser;
         private bool _complete;
 
@@ -24,7 +23,7 @@ namespace ParseZakupki.LotUpload
         {
             var thread = new Thread(() =>
             {
-                var url = new Uri(_urlBuilder.Build(_parameters));
+                var url = new Uri(_urlBuilder.Build(_parameter));
                 _webBrowser = new WebBrowser();
                 _webBrowser.DocumentCompleted += FirstDocumentCompleted;
                 _webBrowser.Navigate(url);
@@ -50,16 +49,16 @@ namespace ParseZakupki.LotUpload
             if (document != null)
             {
                 var publishDateFrom = document.GetElementById("phWorkZone_phFilterZone_nbtPurchaseListFilter_cldPublicDateStart");
-                publishDateFrom?.SetAttribute("value", _parameters.PublishDateFrom.ToString("d"));
+                publishDateFrom?.SetAttribute("value", _parameter.PublishDateFrom.ToString("d"));
 
                 var publishDateTo = document.GetElementById("phWorkZone_phFilterZone_nbtPurchaseListFilter_cldPublicDateEnd");
-                publishDateTo?.SetAttribute("value", _parameters.PublishDateTo.ToString("d"));
+                publishDateTo?.SetAttribute("value", _parameter.PublishDateTo.ToString("d"));
 
                 var costFrom = document.GetElementById("phWorkZone_phFilterZone_nbtPurchaseListFilter_purchamountstart");
-                costFrom?.SetAttribute("value", _parameters.CostFrom.ToString());
+                costFrom?.SetAttribute("value", _parameter.CostFrom.ToString());
 
                 var costTo = document.GetElementById("phWorkZone_phFilterZone_nbtPurchaseListFilter_purchamountend");
-                costTo?.SetAttribute("value", _parameters.ToString());
+                costTo?.SetAttribute("value", _parameter.ToString());
 
                 var buttonSearch = document.GetElementById("phWorkZone_phFilterZone_btnSearch");
                 if (buttonSearch == null) return;
@@ -107,7 +106,7 @@ namespace ParseZakupki.LotUpload
             _webBrowser.Navigate(uri);
         }
 
-        public IReadOnlyCollection<Marketplace> Upload()
+        public IReadOnlyCollection<Lot> Upload()
         {
             RunWebBrowserThread();
             while (!_complete)
@@ -117,9 +116,9 @@ namespace ParseZakupki.LotUpload
             return _purchaseInfo;
         }
 
-        public LotUploaderJs(IParameters parameters, IUrlBuilder urlBuilder, IMarketplaceParser marketPlaceParser)
+        public LotUploaderJs(IParameter parameter, IUrlBuilder urlBuilder, IMarketplaceParser marketPlaceParser)
         {
-            _parameters = parameters;
+            _parameter = parameter;
             _urlBuilder = urlBuilder;
             _marketPlaceParser = marketPlaceParser;
         }

@@ -1,18 +1,28 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
+    padding-top: 50px;
 }
 
 /* Set padding to keep content from hitting the edges */
+
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    margin: 0 auto;
+    width: 80%;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+
+.nopadding {
+    margin: 0;
+    padding: 0;
 }
 
+.input-xxs {
+    border-radius: 3px;
+    font-size: 10px;
+    height: 25px;
+    line-height: 1.5;
+    padding: 2px 5px;
+}
+
+.min-width { width: 1px !important; }

@@ -1,5 +1,5 @@
 ﻿using System;
-using ParseZakupki.Entity;
+using MarketplaceLocalDB;
 using ParseZakupki.LotUpload;
 using ParseZakupki.Parameter.Common;
 using ParseZakupki.Parameter.ZakupkiParameter;
@@ -12,11 +12,11 @@ namespace ParseZakupki.Module
 {
     public class ZakupkiModule : CommonModule
     {
-        private readonly ParametersDb _parameters;
+        private readonly ParseParameter _parameter;
 
-        public ZakupkiModule(ParametersDb parameters)
+        public ZakupkiModule(ParseParameter parameter)
         {
-            _parameters = parameters;
+            _parameter = parameter;
         }
 
         public override void Load()
@@ -24,16 +24,16 @@ namespace ParseZakupki.Module
             base.Load();
 
             Bind<ILotUploader>().To<LotUploader>();
-            Bind<IPageParameters>().To<ZakupkiParameters>()
-                .WithPropertyValue("CostFrom", _parameters.CostFrom)
-                .WithPropertyValue("CostTo", _parameters.CostTo)
+            Bind<IPageParameter>().To<ZakupkiParameter>()
+                .WithPropertyValue("CostFrom", _parameter.CostFrom)
+                .WithPropertyValue("CostTo", _parameter.CostTo)
                 .WithPropertyValue("PublishDateFrom", DateTime.Now.AddDays(-1))
-                .WithPropertyValue("PublishDateFrom", _parameters.PublishDateFrom)
-                .WithPropertyValue("PublishDateTo", _parameters.PublishDateTo);
+                .WithPropertyValue("PublishDateFrom", _parameter.PublishDateFrom)
+                .WithPropertyValue("PublishDateTo", _parameter.PublishDateTo);
             Bind<IUrlBuilder>().To<ZakupkiUrlBuilder>();
             Bind<IMaxNumberPageParser>().To<ZakupkiMaxNumberPageParser>();
             Bind<IParameterType>().To<ZakupkiParameterType>();
-            Bind<ILotsSpliter>().To<ZakupkiLotsSpliter>();
+            Bind<ILotSpliter>().To<ZakupkiLotSpliter>();
             Bind<INodeLotParser>().To<ZakupkiNodeLotParser>()
                 .WithConstructorArgument("domain", new Uri("http://new.zakupki.gov.ru/"))
                 .WithConstructorArgument("dateCreatedParser", new ZakupkiDateCreatedParser())

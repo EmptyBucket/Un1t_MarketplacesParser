@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System;
+using HtmlAgilityPack;
 using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.OTCParser
@@ -12,7 +13,16 @@ namespace ParseZakupki.Parser.OTCParser
                 .SelectSingleNode(".//span[@class='last']/@data-pageindex")
                 .InnerText
                 .Trim();
-            return int.Parse(maxNumberPage);
+            int parsedNumberPage;
+            try
+            {
+                parsedNumberPage = int.Parse(maxNumberPage);
+            }
+            catch (Exception)
+            {
+                parsedNumberPage = 0;
+            }
+            return parsedNumberPage;
         }
     }
 }

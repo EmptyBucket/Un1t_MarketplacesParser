@@ -6,16 +6,16 @@ using ParseZakupki.Parameter.Common;
 
 namespace ParseZakupki.Parameter.OTCParameter
 {
-    public class OtcParameters : IReadOnlyDictionary<IParameterType, Common.Parameter>, IPageParameters
+    public class OtcParameter : IReadOnlyDictionary<IParameterType, Common.Parameter>, IPageParameter
     {
         public const int MaxRecordsPerPage = 100;
 
-        private readonly Dictionary<IParameterType, Common.Parameter> _parameters = new Dictionary<IParameterType, Common.Parameter>();
+        private readonly Dictionary<IParameterType, Common.Parameter> _parameter = new Dictionary<IParameterType, Common.Parameter>();
 
-        public Common.Parameter this[IParameterType key] => _parameters[key];
+        public Common.Parameter this[IParameterType key] => _parameter[key];
 
-        private long _costFrom;
-        public long CostFrom
+        private double _costFrom;
+        public double CostFrom
         {
             get
             {
@@ -23,13 +23,13 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.MinPrice] = new Common.Parameter(OtcParametersType.MinPrice, value.ToString());
+                _parameter[OtcParameterType.MinPrice] = new Common.Parameter(OtcParameterType.MinPrice, value.ToString());
                 _costFrom = value;
             }
         }
 
-        private long _costTo;
-        public long CostTo
+        private double _costTo;
+        public double CostTo
         {
             get
             {
@@ -37,14 +37,14 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.MaxPrice] = new Common.Parameter(OtcParametersType.MaxPrice, value.ToString());
+                _parameter[OtcParameterType.MaxPrice] = new Common.Parameter(OtcParameterType.MaxPrice, value.ToString());
                 _costTo = value;
             }
         }
 
-        public int Count => _parameters.Count;
+        public int Count => _parameter.Count;
 
-        public IEnumerable<IParameterType> Keys => _parameters.Keys;
+        public IEnumerable<IParameterType> Keys => _parameter.Keys;
 
         private int _pageNumber;
         public int PageNumber
@@ -55,7 +55,7 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.PageIndex] = new Common.Parameter(OtcParametersType.PageIndex, value.ToString());
+                _parameter[OtcParameterType.PageIndex] = new Common.Parameter(OtcParameterType.PageIndex, value.ToString());
                 _pageNumber = value;
             }
         }
@@ -69,7 +69,7 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.DatePublishedFrom] = new Common.Parameter(OtcParametersType.DatePublishedFrom, value.ToString("d"));
+                _parameter[OtcParameterType.DatePublishedFrom] = new Common.Parameter(OtcParameterType.DatePublishedFrom, value.ToString("d"));
                 _publishDateFrom = value;
             }
         }
@@ -83,7 +83,7 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.DatePublishedTo] = new Common.Parameter(OtcParametersType.DatePublishedTo, value.ToString("d"));
+                _parameter[OtcParameterType.DatePublishedTo] = new Common.Parameter(OtcParameterType.DatePublishedTo, value.ToString("d"));
                 _publishDateTo = value;
             }
         }
@@ -97,12 +97,12 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.PageSize] = new Common.Parameter(OtcParametersType.PageSize, value.ToString());
+                _parameter[OtcParameterType.PageSize] = new Common.Parameter(OtcParameterType.PageSize, value.ToString());
                 _recordsPage = value;
             }
         }
 
-        public IEnumerable<Common.Parameter> Values => _parameters.Values;
+        public IEnumerable<Common.Parameter> Values => _parameter.Values;
 
         private bool _fz44;
         public bool Fz44
@@ -113,7 +113,7 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.OrganizationLevels] = new Common.Parameter(OtcParametersType.OrganizationLevels, value ? "Fz44" : null);
+                _parameter[OtcParameterType.OrganizationLevels] = new Common.Parameter(OtcParameterType.OrganizationLevels, value ? "Fz44" : null);
                 _fz44 = value;
             }
         }
@@ -126,7 +126,7 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.OrganizationLevels] = new Common.Parameter(OtcParametersType.OrganizationLevels, value ? "Fz223" : null);
+                _parameter[OtcParameterType.OrganizationLevels] = new Common.Parameter(OtcParameterType.OrganizationLevels, value ? "Fz223" : null);
                 _fz223 = value;
             }
         }
@@ -139,12 +139,12 @@ namespace ParseZakupki.Parameter.OTCParameter
             }
             set
             {
-                _parameters[OtcParametersType.OrganizationLevels] = new Common.Parameter(OtcParametersType.OrganizationLevels, value ? "Commercial" : null);
+                _parameter[OtcParameterType.OrganizationLevels] = new Common.Parameter(OtcParameterType.OrganizationLevels, value ? "Commercial" : null);
                 _commercial = value;
             }
         }
 
-        public OtcParameters()
+        public OtcParameter()
         {
             PageNumber = 1;
             RecordsPerPage = MaxRecordsPerPage;
@@ -157,14 +157,14 @@ namespace ParseZakupki.Parameter.OTCParameter
             Commercial = false;
         }
 
-        public bool ContainsKey(IParameterType key) => _parameters.ContainsKey(key);
+        public bool ContainsKey(IParameterType key) => _parameter.ContainsKey(key);
 
-        public IEnumerator<KeyValuePair<IParameterType, Common.Parameter>> GetEnumerator() => _parameters.GetEnumerator();
+        public IEnumerator<KeyValuePair<IParameterType, Common.Parameter>> GetEnumerator() => _parameter.GetEnumerator();
 
-        public bool TryGetValue(IParameterType key, out Common.Parameter value) => _parameters.TryGetValue(key, out value);
+        public bool TryGetValue(IParameterType key, out Common.Parameter value) => _parameter.TryGetValue(key, out value);
 
-        IEnumerator IEnumerable.GetEnumerator() => _parameters.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => _parameter.GetEnumerator();
 
-        public override string ToString() => string.Join(string.Empty, _parameters.Select(parameter => parameter.Value.ToString()));
+        public override string ToString() => string.Join(string.Empty, _parameter.Select(parameter => parameter.Value.ToString()));
     }
 }

@@ -2,19 +2,19 @@
 
 namespace ParseZakupki.Parameter.OTCParameter
 {
-    public class OtcParametersType : IParameterType
+    public class OtcParameterType : IParameterType
     {
-        public static OtcParametersType MinPrice = new OtcParametersType("SearchForm.MinPrice");
-        public static OtcParametersType MaxPrice = new OtcParametersType("SearchForm.MaxPrice");
-        public static OtcParametersType DatePublishedFrom = new OtcParametersType("SearchForm.DatePublishedFrom");
-        public static OtcParametersType DatePublishedTo = new OtcParametersType("SearchForm.DatePublishedTo");
-        public static OtcParametersType OrganizationLevels = new OtcParametersType("SearchForm.OrganizationLevels");
-        public static OtcParametersType PageSize = new OtcParametersType("FilterData.PageSize");
-        public static OtcParametersType PageIndex = new OtcParametersType("FilterData.PageIndex");
+        public static OtcParameterType MinPrice = new OtcParameterType("SearchForm.MinPrice");
+        public static OtcParameterType MaxPrice = new OtcParameterType("SearchForm.MaxPrice");
+        public static OtcParameterType DatePublishedFrom = new OtcParameterType("SearchForm.DatePublishedFrom");
+        public static OtcParameterType DatePublishedTo = new OtcParameterType("SearchForm.DatePublishedTo");
+        public static OtcParameterType OrganizationLevels = new OtcParameterType("SearchForm.OrganizationLevels");
+        public static OtcParameterType PageSize = new OtcParameterType("FilterData.PageSize");
+        public static OtcParameterType PageIndex = new OtcParameterType("FilterData.PageIndex");
 
         public string Type { get; }
 
-        private OtcParametersType(string parameterType)
+        private OtcParameterType(string parameterType)
         {
             Type = parameterType;
         }

@@ -1,8 +1,7 @@
 ﻿using System;
 using HtmlAgilityPack;
-using MarketplaceDB;
+using MarketplaceLocalDB;
 using ParseZakupki.Client;
-using ParseZakupki.Entity;
 using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.SberParser
@@ -11,7 +10,7 @@ namespace ParseZakupki.Parser.SberParser
     {
         private readonly IClient _client;
 
-        public override Marketplace Parse(HtmlNode node)
+        public override Lot Parse(HtmlNode node)
         {
             var relativeLink = SourceLinkParser.Parse(node);
             var absoluteLink = new Uri(Domain, relativeLink);
@@ -19,13 +18,13 @@ namespace ParseZakupki.Parser.SberParser
             var htmlDocLotPage = new HtmlDocument();
             htmlDocLotPage.LoadHtml(lotPageHtml);
             var nodeLotPage = htmlDocLotPage.DocumentNode;
-            var purchase = new Marketplace()
+            var purchase = new Lot()
             {
                 Code = CodeParser.Parse(nodeLotPage),
                 Cost = CostParser.Parse(node),
                 Customer = CustomerParser.Parse(node),
                 DateCreated = DateCreatedParser.Parse(node),
-                DateFilling = DateFillingParser.Parse(node),
+                //DateFilling = DateFillingParser.Parse(node),
                 Description = DescParser.Parse(node),
                 SiteId = IdParser.Parse(node),
                 SourceLink = absoluteLink.ToString()

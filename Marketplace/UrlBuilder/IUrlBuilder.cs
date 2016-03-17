@@ -4,6 +4,6 @@ namespace ParseZakupki.UrlBuilder
 {
     public interface IUrlBuilder
     {
-        string Build(IParameters parameters);
+        string Build(IParameter parameter);
     }
 }

@@ -2,10 +2,10 @@
 
 namespace ParseZakupki.Parameter.Common
 {
-    public interface IParameters
+    public interface IParameter
     {
-        long CostFrom { get; set; }
-        long CostTo { get; set; }
+        double CostFrom { get; set; }
+        double CostTo { get; set; }
         DateTime PublishDateFrom { get; set; }
         DateTime PublishDateTo { get; set; }
     }

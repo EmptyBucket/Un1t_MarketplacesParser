@@ -56,6 +56,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -68,39 +70,8 @@
   <ItemGroup>
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\IClient.cs" />
-    <Compile Include="Entity\ParametersDb.cs" />
-    <Compile Include="Entity\PurchaseContext.cs" />
     <Compile Include="LotUpload\ILotUploader.cs" />
     <Compile Include="LotUpload\LotUploaderJs.cs" />
-    <Compile Include="Migrations\201601241008233_InitialCreate.cs" />
-    <Compile Include="Migrations\201601241008233_InitialCreate.Designer.cs">
-      <DependentUpon>201601241008233_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601241548416_AddClassParameters.cs" />
-    <Compile Include="Migrations\201601241548416_AddClassParameters.Designer.cs">
-      <DependentUpon>201601241548416_AddClassParameters.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601241555179_RemovePageNumberFromParameters.cs" />
-    <Compile Include="Migrations\201601241555179_RemovePageNumberFromParameters.Designer.cs">
-      <DependentUpon>201601241555179_RemovePageNumberFromParameters.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601251437244_ChangeDataStruct.cs" />
-    <Compile Include="Migrations\201601251437244_ChangeDataStruct.Designer.cs">
-      <DependentUpon>201601251437244_ChangeDataStruct.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601252001417_MoreChange.cs" />
-    <Compile Include="Migrations\201601252001417_MoreChange.Designer.cs">
-      <DependentUpon>201601252001417_MoreChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601252008277_RemColumsParameters.cs" />
-    <Compile Include="Migrations\201601252008277_RemColumsParameters.Designer.cs">
-      <DependentUpon>201601252008277_RemColumsParameters.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601252032291_RemPropertyPurchaseInformation.cs" />
-    <Compile Include="Migrations\201601252032291_RemPropertyPurchaseInformation.Designer.cs">
-      <DependentUpon>201601252032291_RemPropertyPurchaseInformation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Module\CommonModule.cs" />
     <Compile Include="Module\OTCModule.cs" />
     <Compile Include="Parameter\Common\IPageParameters.cs" />
@@ -166,32 +137,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601241008233_InitialCreate.resx">
-      <DependentUpon>201601241008233_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601241548416_AddClassParameters.resx">
-      <DependentUpon>201601241548416_AddClassParameters.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601241555179_RemovePageNumberFromParameters.resx">
-      <DependentUpon>201601241555179_RemovePageNumberFromParameters.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601251437244_ChangeDataStruct.resx">
-      <DependentUpon>201601251437244_ChangeDataStruct.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601252001417_MoreChange.resx">
-      <DependentUpon>201601252001417_MoreChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601252008277_RemColumsParameters.resx">
-      <DependentUpon>201601252008277_RemColumsParameters.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601252032291_RemPropertyPurchaseInformation.resx">
-      <DependentUpon>201601252032291_RemPropertyPurchaseInformation.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MarketplaceDB\MarketplaceDB.csproj">
+    <ProjectReference Include="..\MarketplaceDB\MarketplaceLocalDB.csproj">
       <Project>{6f7c6c79-ab23-4244-8487-d572e4bafd25}</Project>
-      <Name>MarketplaceDB</Name>
+      <Name>MarketplaceLocalDB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

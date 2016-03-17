@@ -1,5 +1,4 @@
-﻿using ParseZakupki.Parameter;
-using ParseZakupki.Parameter.Common;
+﻿using ParseZakupki.Parameter.Common;
 
 namespace ParseZakupki.UrlBuilder
 {
@@ -7,10 +6,10 @@ namespace ParseZakupki.UrlBuilder
     {
         public const string Domain = "http://new.zakupki.gov.ru";
 
-        public string Build(IParameters parameters)
+        public string Build(IParameter parameter)
         {
-            string parametersStr = parameters.ToString();
-            string url = $@"{Domain}/epz/order/extendedsearch/results.html?{parametersStr}searchString=&openMode=USE_DEFAULT_PARAMS&sortDirection=false&showLotsInfoHidden=false&orderNumber=&placingWaysList=&placingWaysList223=&currencyId=1&orderName=&participantName=&updateDateFrom=&updateDateTo=&customerTitle=&customerCode=&customerFz94id=&customerFz223id=&customerInn=&agencyTitle=&agencyCode=&agencyFz94id=&agencyFz223id=&agencyInn=&districts=&regions=&af=on&ca=on&deliveryAddress=&sortBy=RELEVANCE";
+            string parameterStr = parameter.ToString();
+            string url = $@"{Domain}/epz/order/extendedsearch/results.html?{parameterStr}searchString=&openMode=USE_DEFAULT_PARAMS&sortDirection=false&showLotInfoHidden=false&orderNumber=&placingWaysList=&placingWaysList223=&currencyId=1&orderName=&participantName=&updateDateFrom=&updateDateTo=&customerTitle=&customerCode=&customerFz94id=&customerFz223id=&customerInn=&agencyTitle=&agencyCode=&agencyFz94id=&agencyFz223id=&agencyInn=&districts=&regions=&af=on&ca=on&deliveryAddress=&sortBy=RELEVANCE";
             return url;
         }
     }

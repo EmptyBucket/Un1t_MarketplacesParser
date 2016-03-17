@@ -1,8 +1,7 @@
 ﻿using System;
 using HtmlAgilityPack;
-using MarketplaceDB;
+using MarketplaceLocalDB;
 using ParseZakupki.Client;
-using ParseZakupki.Entity;
 using ParseZakupki.Parser.Common;
 
 namespace ParseZakupki.Parser.ZakupkiParser
@@ -16,17 +15,22 @@ namespace ParseZakupki.Parser.ZakupkiParser
             _client = client;
         }
 
-        public override Marketplace Parse(HtmlNode node)
+        private int _counter = 0;
+
+        public override Lot Parse(HtmlNode node)
         {
+            Console.WriteLine(_counter++);
             var relativeLink = SourceLinkParser.Parse(node);
             var absoluteLink = new Uri(Domain, relativeLink);
             var lotPageHtml = _client.GetResult(absoluteLink);
             var htmlDocLotPage = new HtmlDocument();
             htmlDocLotPage.LoadHtml(lotPageHtml);
             var nodeLotPage = htmlDocLotPage.DocumentNode;
-            var purchase = new Marketplace()
+            var dateFilling = DateFillingParser.Parse(nodeLotPage);
+            var purchase = new Lot()
             {
-                DateFilling = DateFillingParser.Parse(nodeLotPage),
+                DateStart = dateFilling == "None" ? string.Empty : dateFilling.Split('-')[0].Trim(),
+                DateEnd = dateFilling == "None" ? string.Empty : dateFilling.Split('-')[1].Trim(),
                 Code = CodeParser.Parse(nodeLotPage),
                 SourceLink = absoluteLink.ToString(),
                 DateCreated = DateCreatedParser.Parse(node),
